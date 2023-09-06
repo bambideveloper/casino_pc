@@ -1,0 +1,81 @@
+const ChessGameList = [
+  {
+    id: 1,
+    name: "开元棋牌",
+    href: "/hall/chess/1",
+    type: 1,
+    image: new URL('@/assets/images/LG_KYQP.png', import.meta.url),
+  },
+  {
+    id: 2,
+    name: "乐游棋牌",
+    href: "/hall/chess/2",
+    type: 2,
+    image: new URL('@/assets/images/LG_SSOCHESS.png', import.meta.url),
+  },
+  {
+    id: 3,
+    name: "VG棋牌",
+    href: "/hall/chess/3",
+    type: 3,
+    image: new URL('@/assets/images/LG_VG.png', import.meta.url),
+  },
+  {
+    id: 4,
+    name: "美天棋牌",
+    href: "/hall/chess/4",
+    type: 4,
+    image: new URL('@/assets/images/LG_MTQP.png', import.meta.url),
+  },
+  {
+    id: 5,
+    name: "FG棋牌",
+    href: "/hall/chess/5",
+    type: 5,
+    image: new URL('@/assets/images/LG_FGQP.png', import.meta.url),
+  },
+  {
+    id: 6,
+    name: "双赢棋牌",
+    href: "/hall/chess/6",
+    type: 6,
+    image: new URL('@/assets/images/LG_SGWIN.png', import.meta.url),
+  },
+  {
+    id: 7,
+    name: "盛世棋牌",
+    href: "/hall/chess/7",
+    type: 7,
+    image: new URL('@/assets/images/LG_SS.png', import.meta.url),
+  },
+  {
+    id: 8,
+    name: "美博棋牌",
+    href: "/hall/chess/8",
+    type: 8,
+    image: new URL('@/assets/images/LG_MB.png', import.meta.url),
+  },
+  {
+    id: 9,
+    name: "新世界棋牌",
+    href: "/hall/chess/9",
+    type: 9,
+    image: new URL('@/assets/images/LG_NWG.png', import.meta.url),
+  },
+  {
+    id: 10,
+    name: "百胜棋牌",
+    href: "/hall/chess/10",
+    type: 10,
+    image: new URL('@/assets/images/LG_BS.png', import.meta.url),
+  },
+  {
+    id: 11,
+    name: "天豪棋牌",
+    href: "/hall/chess/11",
+    type: 11,
+    image: new URL('@/assets/images/LG_THQP.png', import.meta.url),
+  },
+];
+
+export default ChessGameList;
