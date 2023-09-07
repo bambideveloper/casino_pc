@@ -24,6 +24,11 @@ const router = createRouter({
       component: () => import("../views/Electronic/index.vue"),
     },
     {
+      path: "/hall/video",
+      name: "video",
+      component: () => import("../views/Video/index.vue"),
+    },
+    {
       path: "/hall/lottery/:typeId",
       name: "lottery",
       component: () => import("../views/Lottery/index.vue"),

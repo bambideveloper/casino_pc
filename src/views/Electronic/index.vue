@@ -80,10 +80,13 @@ const electronicBtnList = [
 import { ref, defineComponent } from 'vue'
 import { agGameStore } from "../../store/ag_game";
 import { bbinGameStore } from '../../store/bbin_game';
+import { ptGameStore } from '../../store/pt_game';
+import { mgGameStore } from '../../store/mg_game';
 import { useAuthStore } from "../../store/auth";
 import { storeToRefs } from "pinia";
 import { ElLoading } from "element-plus";
 import { showToast } from "vant";
+import { useRoute } from 'vue-router';
 const games1 = [
   {
     id: 1,
@@ -237,7 +240,8 @@ export default {
     },
   },
   async mounted() {
-    this.typeId = 1;
+    const route = useRoute();
+    this.typeId = route.params.typeId;
     var clsName = " changeTabRight";
     await this.getGameList(this.typeId, clsName);
   },
@@ -252,8 +256,14 @@ export default {
         const { dispatchBBINGameAll } = bbinGameStore();
         await dispatchBBINGameAll({});
         this.gameList = this.bbinGameList;
-      } else {
-        this.gameList = this.agGameList;
+      } else if (parseInt(typeId) === 3) {
+        const { dispatchPTGameAll } = ptGameStore();
+        await dispatchPTGameAll({});
+        this.gameList = this.ptGameList;
+      } else if (parseInt(typeId) === 4) {
+        const { dispatchMGGameAll } = mgGameStore();
+        await dispatchMGGameAll({});
+        this.gameList = this.mgGameList;
       }
       this.changeTabRightClass += clsName;
     },
@@ -273,26 +283,48 @@ export default {
       });
       if (type_id == 1) {
         const { dispatchRedirectAGUrl } = agGameStore();
-          await dispatchRedirectAGUrl({ game_type }, this.token);
-          loading.close();
-          if (this.success) {
-            if (this.redirectAGUrl != "") {
-              window.open(this.redirectAGUrl, '_blank');
-            }
-          } else {
-            showToast(this.errMessage)
+        await dispatchRedirectAGUrl({ game_type }, this.token);
+        loading.close();
+        if (this.success) {
+          if (this.redirectAGUrl != "") {
+            window.open(this.redirectAGUrl, '_blank');
           }
-      } else if(type_id == 2) {
+        } else {
+          showToast(this.errMessage)
+        }
+      } else if (type_id == 2) {
         const { dispatchRedirectBBINUrl } = bbinGameStore();
-          await dispatchRedirectBBINUrl({ game_type }, this.token);
-          loading.close();
-          if (this.bbinSuccess) {
-            if (this.redirectBBINUrl != "") {
-              window.open(this.redirectBBINUrl, '_blank');
-            }
-          } else {
-            showToast(this.bbinErrMessage)
+        await dispatchRedirectBBINUrl({ game_type }, this.token);
+        loading.close();
+        if (this.bbinSuccess) {
+          if (this.redirectBBINUrl != "") {
+            window.open(this.redirectBBINUrl, '_blank');
           }
+        } else {
+          showToast(this.bbinErrMessage)
+        }
+      } else if (type_id == 3) {
+        const { dispatchRedirectPTUrl } = ptGameStore();
+        await dispatchRedirectPTUrl({ game_type }, this.token);
+        loading.close();
+        if (this.ptSuccess) {
+          if (this.redirectPTUrl != "") {
+            window.open(this.redirectPTUrl, '_blank');
+          }
+        } else {
+          showToast(this.ptErrMessage)
+        }
+      } else if (type_id == 4) {
+        const { dispatchRedirectMGUrl } = mgGameStore();
+        await dispatchRedirectMGUrl({ game_type }, this.token);
+        loading.close();
+        if (this.mgSuccess) {
+          if (this.redirectMGUrl != "") {
+            window.open(this.redirectMGUrl, '_blank');
+          }
+        } else {
+          showToast(this.mgErrMessage)
+        }
       }
     },
     async changeTypeId(id) {
@@ -323,6 +355,14 @@ export default {
       const { getBBINGameList } = storeToRefs(bbinGameStore());
       return getBBINGameList.value
     },
+    ptGameList() {
+      const { getPTGameList } = storeToRefs(ptGameStore());
+      return getPTGameList.value
+    },
+    mgGameList() {
+      const { getMGGameList } = storeToRefs(mgGameStore());
+      return getMGGameList.value
+    },
     redirectAGUrl() {
       const { getRedirectAGUrl } = storeToRefs(agGameStore());
       return getRedirectAGUrl.value;
@@ -330,6 +370,14 @@ export default {
     redirectBBINUrl() {
       const { getRedirectBBINUrl } = storeToRefs(bbinGameStore());
       return getRedirectBBINUrl.value;
+    },
+    redirectPTUrl() {
+      const { getRedirectPTUrl } = storeToRefs(ptGameStore());
+      return getRedirectPTUrl.value;
+    },
+    redirectMGUrl() {
+      const { getRedirectMGUrl } = storeToRefs(mgGameStore());
+      return getRedirectMGUrl.value;
     },
     success() {
       const { getSuccess } = storeToRefs(agGameStore());
@@ -345,6 +393,22 @@ export default {
     },
     bbinErrMessage: function () {
       const { getErrMessage } = storeToRefs(bbinGameStore());
+      return getErrMessage.value
+    },
+    ptSuccess() {
+      const { getSuccess } = storeToRefs(ptGameStore());
+      return getSuccess.value
+    },
+    ptErrMessage: function () {
+      const { getErrMessage } = storeToRefs(ptGameStore());
+      return getErrMessage.value
+    },
+    mgSuccess() {
+      const { getSuccess } = storeToRefs(mgGameStore());
+      return getSuccess.value
+    },
+    mgErrMessage: function () {
+      const { getErrMessage } = storeToRefs(mgGameStore());
       return getErrMessage.value
     },
     user: function () {

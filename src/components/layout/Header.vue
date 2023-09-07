@@ -468,49 +468,37 @@ const menuList = ref([
     id: 4,
     name: "视讯游戏",
     href: "/hall/video",
-    type: "menu",
+    type: "video",
     children: [
       {
-        name: "AG国际馆",
+        name: "新葡京OG东方馆",
         btnName: "开始游戏",
-        href: "/hall/video",
+        redirect: 'OG_GAME',
         image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
       },
       {
-        name: "BBIN视讯",
+        name: "AG国际厅",
         btnName: "开始游戏",
-        href: "/hall/video",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        redirect: 'AG_GAME_2',
+        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
       },
       {
-        name: "皇家视讯",
+        name: "AG旗舰厅",
         btnName: "开始游戏",
-        href: "/hall/video",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        redirect: 'AG_GAME_1',
+        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
       },
       {
-        name: "BG视讯",
+        name: "AGVIP厅",
         btnName: "开始游戏",
-        href: "/hall/video",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        redirect: 'AG_GAME_4',
+        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
       },
       {
-        name: "PM真人视讯",
+        name: "BBIN馆",
         btnName: "开始游戏",
-        href: "/hall/video",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
-      },
-      {
-        name: "DG视讯BG视讯",
-        btnName: "开始游戏",
-        href: "/hall/video",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
-      },
-      {
-        name: "EBET视讯",
-        btnName: "开始游戏",
-        href: "/hall/video",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        redirect: 'BBIN_GAME_1',
+        image: new URL("@/assets/images/LG_BBINDZ.8791659c.png", import.meta.url),
       },
     ],
   },
@@ -727,8 +715,8 @@ const menuList = ref([
             <img src="@/assets/images/logo.png" alt="logo" />
           </router-link>
           <router-link :to="menu.href"
-            class="flex items-center w-full text-base cursor-pointer text-[#d7d7d7] hover:text-[#fbe59c]" v-else>{{
-              menu.name }}
+            class="flex items-center w-full text-base cursor-pointer text-[#d7d7d7] hover:text-[#fbe59c]" v-else>
+            {{ menu.name }}
           </router-link>
         </li>
       </ul>
@@ -778,7 +766,7 @@ const menuList = ref([
                       </dl>
                     </div>
                     <li class="w-[120px] mr-0" v-for="submenu in menu.children" :key="submenu" v-else>
-                      <router-link :to="submenu.href">
+                      <router-link :to="submenu.href" v-if="menu.type != 'video'">
                         <div class="w-[120px]">
                           <div class="flex items-center justify-center h-[95px]">
                             <img :src="submenu.image" alt="LG KYQP" class="h-[60px]" />
@@ -792,6 +780,18 @@ const menuList = ref([
                           </span>
                         </div>
                       </router-link>
+                      <div class="w-[120px]" v-else>
+                        <div class="flex items-center justify-center h-[95px]">
+                          <img :src="submenu.image" alt="LG KYQP" class="h-[60px]" />
+                        </div>
+                        <div class="text-center text-sm text-[#d7d7d7] leading-[14px] pb-4">
+                          {{ submenu.name }}
+                        </div>
+                        <span @click="redirectRealGame(submenu.redirect)"
+                          class="flex justify-center items-center mx-auto w-[107px] h-[40px] rounded-[20px] box-border text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s] hover:bg-[#fbe59c] hover:text-black hover:border-none cursor-pointer text-xs">
+                          {{ submenu.btnName }}
+                        </span>
+                      </div>
                     </li>
                   </ul>
                 </div>
@@ -829,6 +829,11 @@ import { onMounted, onUnmounted } from "vue";
 import { useAuthStore } from "../../store/auth";
 import { ElLoading } from "element-plus";
 import { ElNotification, ElMessageBox } from "element-plus";
+import { ogGameStore } from "../../store/og_game";
+import { agGameStore } from "../../store/ag_game";
+import { bbinGameStore } from "../../store/bbin_game";
+import { useSysConfigStore } from "../../store/sysConfig";
+import {showToast} from 'vant'
 export default {
   name: "Header",
   setup() {
@@ -846,13 +851,83 @@ export default {
       user: null,
     };
   },
-  mounted() {
+  async mounted() {
     window.addEventListener("scroll", this.handleScroll);
+    const { getSysConfigValue } = useSysConfigStore();
+    await getSysConfigValue();
   },
   beforeUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
+    redirectRealGame: async function (redirect) {
+      if (this.user.id == undefined) {
+        showToast("您还没有登录或登录超时，请重新登录......");
+        return;
+      }
+      if ((this.user.OG == 0 || this.sysConfigItem.OG == 0 || this.sysConfigItem.OG_Repair == 1) && redirect == "OG_GAME") {
+        showToast("开元棋牌维护中，请稍候再试......");
+        return;
+      }
+      if ((this.user.AG == 0 || this.sysConfigItem.AG == 0 || this.sysConfigItem.AG_Repair == 1) && (redirect == "AG_GAME_2" || redirect == "AG_GAME_1" || redirect == "AG_GAME_4")) {
+        showToast("开元棋牌维护中，请稍候再试......");
+        return;
+      }
+      if ((this.user.BBIN == 0 || this.sysConfigItem.BBIN == 0 || this.sysConfigItem.BBIN_Repair == 1) && redirect == "BBIN_GAME_1") {
+        showToast("开元棋牌维护中，请稍候再试......");
+        return;
+      }
+      const loading = ElLoading.service({
+        lock: true,
+        text: "加载中...",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+
+      if (redirect == "OG_GAME") {
+        const { dispatchRedirectOGUrl } = ogGameStore();
+        await dispatchRedirectOGUrl({}, this.token)
+        if (ogSuccess.value && redirectOGUrl.value != "") {
+          window.open(redirectOGUrl.value, '_blank');
+        } else {
+          showToast(ogErrMessage.value);
+        }
+      } else if (redirect == "AG_GAME_2") {
+        const { dispatchRedirectAGUrl } = agGameStore();
+        await dispatchRedirectAGUrl({ game_type: 2 }, this.token);
+        console.log(agSuccess.value, redirectAGUrl.value);
+        if (agSuccess.value && redirectAGUrl.value != "") {
+          window.open(redirectAGUrl.value, '_blank');
+        } else {
+          showToast(agErrMessage.value);
+        }
+      } else if (redirect == "AG_GAME_1") {
+        const { dispatchRedirectAGUrl } = agGameStore();
+        await dispatchRedirectAGUrl({ game_type: 1 }, this.token);
+        if (agSuccess.value && redirectAGUrl.value != "") {
+          window.open(redirectAGUrl.value, '_blank');
+        } else {
+          showToast(agErrMessage.value);
+        }
+      } else if (redirect == "AG_GAME_4") {
+        const { dispatchRedirectAGUrl } = agGameStore();
+        await dispatchRedirectAGUrl({ game_type: 4 }, this.token);
+        if (agSuccess.value && redirectAGUrl.value != "") {
+          window.open(redirectAGUrl.value, '_blank');
+        } else {
+          showToast(agErrMessage.value);
+        }
+      } else if (redirect == "BBIN_GAME_1") {
+        const { dispatchRedirectBBINUrl } = bbinGameStore();
+        await dispatchRedirectBBINUrl({ game_type: 1 }, this.token);
+        if (bbinSuccess.value && redirectBBINUrl.value != "") {
+          window.open(redirectBBINUrl.value, '_blank');
+        } else {
+          showToast(bbinErrMessage.value);
+        }
+      }
+
+      loading.close();
+    },
     login: async function () {
       const loading = ElLoading.service({
         lock: true,
@@ -890,6 +965,50 @@ export default {
       const { getUser } = useAuthStore();
       this.user = getUser;
       return getUser;
+    },
+    token: function () {
+      const { getToken } = useAuthStore();
+      return getToken
+    },
+    sysConfigItem: function () {
+      const { getSysConfig } = useSysConfigStore();
+      return getSysConfig
+    },
+    redirectOGUrl() {
+      const { getRedirectOGUrl } = storeToRefs(ogGameStore());
+      return getRedirectOGUrl.value;
+    },
+    redirectAGUrl() {
+      const { getRedirectAGUrl } = storeToRefs(agGameStore());
+      return getRedirectAGUrl.value;
+    },
+    redirectBBINUrl() {
+      const { getRedirectBBINUrl } = storeToRefs(bbinGameStore());
+      return getRedirectBBINUrl.value;
+    },
+    agSuccess() {
+      const { getSuccess } = storeToRefs(agGameStore());
+      return getSuccess.value
+    },
+    agErrMessage: function () {
+      const { getErrMessage } = storeToRefs(agGameStore());
+      return getErrMessage.value
+    },
+    bbinSuccess() {
+      const { getSuccess } = storeToRefs(bbinGameStore());
+      return getSuccess.value
+    },
+    bbinErrMessage: function () {
+      const { getErrMessage } = storeToRefs(bbinGameStore());
+      return getErrMessage.value
+    },
+    ogSuccess() {
+      const { getSuccess } = storeToRefs(ogGameStore());
+      return getSuccess.value
+    },
+    ogErrMessage: function () {
+      const { getErrMessage } = storeToRefs(ogGameStore());
+      return getErrMessage.value
     },
   },
 };
