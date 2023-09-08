@@ -95,7 +95,7 @@
           v-for="item in gameList"
           :key="item"
         >
-          <div class="relative w-[155px] h-[175px]">
+          <div class="relative w-[155px] h-[175px]" @click="goToLotteryPage(item.name)">
             <div>
               <img :src="item.image" :alt="item.name" class="w-full" />
             </div>
@@ -127,84 +127,99 @@
   </div>
 </template>
 <script>
+import { APP_URL } from "../../config";
 const games1 = [
-  {
-    id: 1,
-    name: "十倍牛牛",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
-  {
-    id: 2,
-    name: "看牌抢庄三公",
-    image: new URL('@/assets/images/fish/fish-game-2.png', import.meta.url),
-  },
-  {
-    id: 3,
-    name: "金球银球",
-    image: new URL('@/assets/images/fish/fish-game-3.png', import.meta.url),
-  },
-  {
-    id: 4,
-    name: "极速百家乐",
-    image: new URL('@/assets/images/fish/fish-game-4.png', import.meta.url),
-  },
-  {
-    id: 5,
-    name: "21 点",
-    image: new URL('@/assets/images/fish/fish-game-5.png', import.meta.url),
-  },
-  {
-    id: 6,
-    name: "梭哈德州扑克",
-    image: new URL('@/assets/images/fish/fish-game-6.png', import.meta.url),
-  },
-  {
-    id: 7,
-    name: "十倍牛牛",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
-  {
-    id: 8,
-    name: "看牌抢庄三公",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
-  {
-    id: 9,
-    name: "金球银球",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
-  {
-    id: 10,
-    name: "极速百家乐",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
-  {
-    id: 11,
-    name: "21 点",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
-  {
-    id: 12,
-    name: "梭哈德州扑克",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
-  {
-    id: 13,
-    name: "极速百家乐",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
-  {
-    id: 14,
-    name: "21 点",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
-  {
-    id: 15,
-    name: "梭哈德州扑克",
-    image: new URL('@/assets/images/fish/fish-game-1.png', import.meta.url),
-  },
+      {
+        id: 1,
+        name: "澳门六合彩",
+        image: new URL("@/assets/images/lottery/1661690557403.png", import.meta.url),
+      },
+      {
+        id: 2,
+        name: "香港六合彩",
+        image: new URL("@/assets/images/lottery/1657716617488.png", import.meta.url),
+      },
+      {
+        id: 3,
+        name: "重庆时时彩",
+        image: new URL("@/assets/images/lottery/1657714819579.png", import.meta.url),
+      },
+      {
+        id: 4,
+        name: "河内五分彩",
+        image: new URL("@/assets/images/lottery/1657714849313.png", import.meta.url),
+      },
+      {
+        id: 5,
+        name: "澳洲幸运5",
+        image: new URL("@/assets/images/lottery/1657714889990.png", import.meta.url),
+      },
+      {
+        id: 6,
+        name: "澳洲幸运10",
+        image: new URL("@/assets/images/lottery/1657714931262.png", import.meta.url),
+      },
+      {
+        id: 7,
+        name: "幸运飞艇",
+        image: new URL("@/assets/images/lottery/1657714996653.png", import.meta.url),
+      },
+      {
+        id: 8,
+        name: "北京PK拾",
+        image: new URL("@/assets/images/lottery/1657715017976.png", import.meta.url),
+      },
+      {
+        id: 9,
+        name: "天津时时彩",
+        image: new URL("@/assets/images/lottery/1657715051568.png", import.meta.url),
+      },
+      {
+        id: 10,
+        name: "新疆时时彩",
+        image: new URL("@/assets/images/lottery/1657715081433.png", import.meta.url),
+      },
+      {
+        id: 11,
+        name: "重庆十分彩",
+        image: new URL("@/assets/images/lottery/1657715118483.png", import.meta.url),
+      },
+      {
+        id: 12,
+        name: "广东十分彩",
+        image: new URL("@/assets/images/lottery/1657715213155.png", import.meta.url),
+      },
+      {
+        id: 13,
+        name: "广西十分彩",
+        image: new URL("@/assets/images/lottery/1657715266155.png", import.meta.url),
+      },
+      {
+        id: 14,
+        name: "天津十分彩",
+        image: new URL("@/assets/images/lottery/1657715295309.png", import.meta.url),
+      },
+      {
+        id: 15,
+        name: "上海时时乐",
+        image: new URL("@/assets/images/lottery/1657715460185.png", import.meta.url),
+      },
+      {
+        id: 16,
+        name: "广东11选5",
+        image: new URL("@/assets/images/lottery/1657715499820.png", import.meta.url),
+      },
+      {
+        id: 17,
+        name: "福彩3D",
+        image: new URL("@/assets/images/lottery/1657716481773.png", import.meta.url),
+      },
+      {
+        id: 18,
+        name: "排列3",
+        image: new URL("@/assets/images/lottery/1657716517091.png", import.meta.url),
+      },
 ];
-const games2 = [];
 export default {
   data() {
     return {
@@ -219,6 +234,69 @@ export default {
     this.getGameList(this.typeId);
   },
   methods: {
+    goToLotteryPage: function (name) {
+      if (!localStorage.getItem("token")) {
+        showToast("您还没有登录或登录超时，请重新登录......");
+        return;
+      } else {
+        switch (name) {
+          case "澳门六合彩":
+            window.open(`${APP_URL}/#/macao-mark-six?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "香港六合彩":
+            window.open(`${APP_URL}/#/mark-six?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "重庆时时彩":
+            window.open(`${APP_URL}/#/alwayscolor/cqssc?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "河内五分彩":
+            window.open(`${APP_URL}/#/alwayscolor/ffc5?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "澳洲幸运5":
+            window.open(`${APP_URL}/#/alwayscolor/azxy5?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "澳洲幸运10":
+            window.open(`${APP_URL}/#/alwayscolor/azxy10?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "幸运飞艇":
+            window.open(`${APP_URL}/#/alwayscolor/xyft?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "北京PK拾":
+            window.open(`${APP_URL}/#/alwayscolor/bjpk?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "天津时时彩":
+            window.open(`${APP_URL}/#/alwayscolor/tjssc?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "新疆时时彩":
+            window.open(`${APP_URL}/#/alwayscolor/jxssc?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "重庆十分彩":
+            window.open(`${APP_URL}/#/alwayscolor/cqsf?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "广东十分彩":
+            window.open(`${APP_URL}/#/alwayscolor/gdsf?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "广西十分彩":
+            window.open(`${APP_URL}/#/alwayscolor/gxsf?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "天津十分彩":
+            window.open(`${APP_URL}/#/alwayscolor/tjsf?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "上海时时乐":
+            window.open(`${APP_URL}/#/alwayscolor/shssl?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "广东11选5":
+            window.open(`${APP_URL}/#/alwayscolor/gd11?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "福彩3D":
+            window.open(`${APP_URL}/#/alwayscolor/d3?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "排列3":
+            window.open(`${APP_URL}/#/alwayscolor/p3?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+        }
+      }
+    },
     getGameList(typeId) {
       this.changeTabRightClass = "w-full min-h-[398px] flex flex-wrap";
       setTimeout(() => {

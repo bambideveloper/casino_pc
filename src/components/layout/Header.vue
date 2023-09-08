@@ -1,5 +1,13 @@
 <script setup>
 import { ref } from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+// import Swiper core and required modules
+import { Pagination } from "swiper/modules";
+
+const modules = [Pagination];
 const menuList = ref([
   {
     id: 1,
@@ -505,68 +513,98 @@ const menuList = ref([
   {
     id: 5,
     name: "彩票游戏",
-    href: "/hall/lottery/0",
-    type: "menu",
+    href: "/hall/lottery",
+    type: "lottery",
     children: [
       {
-        name: "新澳门六合彩",
+        name: "澳门六合彩",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1661690557403.png", import.meta.url),
       },
       {
         name: "香港六合彩",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1657716617488.png", import.meta.url),
       },
       {
-        name: "急速PK10",
+        name: "重庆时时彩",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1657714819579.png", import.meta.url),
       },
       {
-        name: "澳门六合彩",
+        name: "河内五分彩",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1657714849313.png", import.meta.url),
       },
       {
-        name: "快速牛牛",
+        name: "澳洲幸运5",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1657714889990.png", import.meta.url),
       },
       {
-        name: "极速六合彩",
+        name: "澳洲幸运10",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1657714931262.png", import.meta.url),
       },
       {
-        name: "急速六合彩",
+        name: "幸运飞艇",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1657714996653.png", import.meta.url),
       },
       {
-        name: "快速六合彩",
+        name: "北京PK拾",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1657715017976.png", import.meta.url),
       },
       {
-        name: "腾讯五分彩",
+        name: "天津时时彩",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1657715051568.png", import.meta.url),
       },
       {
-        name: "急速赛车",
+        name: "新疆时时彩",
         btnName: "开始游戏",
-        href: "/hall/lottery/1",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/lottery/1657715081433.png", import.meta.url),
+      },
+      {
+        name: "重庆十分彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715118483.png", import.meta.url),
+      },
+      {
+        name: "广东十分彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715213155.png", import.meta.url),
+      },
+      {
+        name: "广西十分彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715266155.png", import.meta.url),
+      },
+      {
+        name: "天津十分彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715295309.png", import.meta.url),
+      },
+      {
+        name: "上海时时乐",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715460185.png", import.meta.url),
+      },
+      {
+        name: "广东11选5",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715499820.png", import.meta.url),
+      },
+      {
+        name: "福彩3D",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657716481773.png", import.meta.url),
+      },
+      {
+        name: "排列3",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657716517091.png", import.meta.url),
       },
     ],
   },
@@ -582,43 +620,19 @@ const menuList = ref([
     id: 7,
     name: "体育游戏",
     href: "/hall/sport",
-    type: "menu",
+    type: "sports",
     children: [
       {
-        name: "IM体育",
+        name: "足球",
         btnName: "进入平台",
         href: "/hall/sport",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/sport/ball_16.png", import.meta.url),
       },
       {
-        name: "沙巴体育",
+        name: "篮球",
         btnName: "进入平台",
         href: "/hall/sport",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
-      },
-      {
-        name: "皇冠体育",
-        btnName: "进入平台",
-        href: "/hall/sport",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
-      },
-      {
-        name: "FB体育",
-        btnName: "进入平台",
-        href: "/hall/sport",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
-      },
-      {
-        name: "开元体育",
-        btnName: "进入平台",
-        href: "/hall/sport",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
-      },
-      {
-        name: "PM体育",
-        btnName: "进入平台",
-        href: "/hall/sport",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+        image: new URL("@/assets/images/sport/ball_07.png", import.meta.url),
       },
     ],
   },
@@ -726,76 +740,95 @@ const menuList = ref([
           menuList.filter((menu) => menu.id === hoverId)[0].children.length > 0
           ">
         <div class="max-w-screen-xl mx-auto">
-          <div>
-            <div class="w-full h-full relative">
-              <div class="w-full h-full" v-for="menu in menuList" :key="menu">
-                <div>
-                  <ul v-if="menu.id === hoverId" class="w-full left-[-120px] flex justify-start overflow-hidden">
-                    <div v-if="menu.type === 'activity'">
-                      <dl class="flex">
-                        <dd class="flex max-w-full transition-[.5s] overflow-hidden">
-                          <div class="w-[200px]">
-                            <h2 class="pt-[35px] leading-[50px] text-center text-[26px] text-white">
-                              劲爆优惠
-                            </h2>
-                            <p class="text-[#d7d7d7] text-center text-sm leading-[14px]">
-                              PROMOTIONS
-                            </p>
-                            <span
-                              class="mt-[25px] mx-auto flex items-center justify-center w-[148px] h-[45px] rounded-[22px] box-border text-sm text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s]">了解详情</span>
-                          </div>
-                          <div class="flex mr-[1px]">
-                            <img src="@/assets/images/side6.png" alt="side" class="w-full h-[186px] transition-[.5s]" />
-                          </div>
-                        </dd>
-                        <dd class="flex max-w-full transition-[.5s] overflow-hidden">
-                          <div class="w-[200px]">
-                            <h2 class="pt-[35px] leading-[50px] text-center text-[26px] text-white">
-                              优惠申请
-                            </h2>
-                            <p class="text-[#d7d7d7] text-center text-sm leading-[14px]">
-                              PROMOTIONS
-                            </p>
-                            <span
-                              class="mt-[25px] mx-auto flex items-center justify-center w-[148px] h-[45px] rounded-[22px] box-border text-sm text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s]">了解详情</span>
-                          </div>
-                          <div class="flex mr-[1px]">
-                            <img src="@/assets/images/side7.png" alt="side" class="w-full h-[186px] transition-[.5s]" />
-                          </div>
-                        </dd>
-                      </dl>
-                    </div>
-                    <li class="w-[120px] mr-0" v-for="submenu in menu.children" :key="submenu" v-else>
-                      <router-link :to="submenu.href" v-if="menu.type != 'video'">
-                        <div class="w-[120px]">
-                          <div class="flex items-center justify-center h-[95px]">
-                            <img :src="submenu.image" alt="LG KYQP" class="h-[60px]" />
-                          </div>
-                          <div class="text-center text-sm text-[#d7d7d7] leading-[14px] pb-4">
-                            {{ submenu.name }}
-                          </div>
-                          <span
-                            class="flex justify-center items-center mx-auto w-[107px] h-[40px] rounded-[20px] box-border text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s] hover:bg-[#fbe59c] hover:text-black hover:border-none cursor-pointer text-xs">
-                            {{ submenu.btnName }}
-                          </span>
-                        </div>
-                      </router-link>
-                      <div class="w-[120px]" v-else>
+          <div class="w-full h-full relative">
+            <div class="w-full h-full" v-for="menu in menuList" :key="menu">
+              <ul v-if="menu.id === hoverId" class="w-full left-[-120px] flex justify-start overflow-hidden">
+                <div v-if="menu.type === 'activity'">
+                  <dl class="flex">
+                    <dd class="flex max-w-full transition-[.5s] overflow-hidden">
+                      <div class="w-[200px]">
+                        <h2 class="pt-[35px] leading-[50px] text-center text-[26px] text-white">
+                          劲爆优惠
+                        </h2>
+                        <p class="text-[#d7d7d7] text-center text-sm leading-[14px]">
+                          PROMOTIONS
+                        </p>
+                        <span
+                          class="mt-[25px] mx-auto flex items-center justify-center w-[148px] h-[45px] rounded-[22px] box-border text-sm text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s]">了解详情</span>
+                      </div>
+                      <div class="flex mr-[1px]">
+                        <img src="@/assets/images/side6.png" alt="side" class="w-full h-[186px] transition-[.5s]" />
+                      </div>
+                    </dd>
+                    <dd class="flex max-w-full transition-[.5s] overflow-hidden">
+                      <div class="w-[200px]">
+                        <h2 class="pt-[35px] leading-[50px] text-center text-[26px] text-white">
+                          优惠申请
+                        </h2>
+                        <p class="text-[#d7d7d7] text-center text-sm leading-[14px]">
+                          PROMOTIONS
+                        </p>
+                        <span
+                          class="mt-[25px] mx-auto flex items-center justify-center w-[148px] h-[45px] rounded-[22px] box-border text-sm text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s]">了解详情</span>
+                      </div>
+                      <div class="flex mr-[1px]">
+                        <img src="@/assets/images/side7.png" alt="side" class="w-full h-[186px] transition-[.5s]" />
+                      </div>
+                    </dd>
+                  </dl>
+                </div>
+                <Swiper :modules="modules" :slidesPerView="10" :spaceBetween="8" style="height: auto"
+                  @swiper="getSwiperRef" v-else-if="menu.name == '彩票游戏'">
+                  <SwiperSlide v-for="(submenu, subIndex) in menu.children" :key="subIndex" :virtualIndex="subIndex">
+                    <li class="w-[120px] mr-0">
+                      <div class="w-[120px]">
                         <div class="flex items-center justify-center h-[95px]">
                           <img :src="submenu.image" alt="LG KYQP" class="h-[60px]" />
                         </div>
                         <div class="text-center text-sm text-[#d7d7d7] leading-[14px] pb-4">
                           {{ submenu.name }}
                         </div>
-                        <span @click="redirectRealGame(submenu.redirect)"
+                        <span @click="goToLotteryPage(submenu.name)"
                           class="flex justify-center items-center mx-auto w-[107px] h-[40px] rounded-[20px] box-border text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s] hover:bg-[#fbe59c] hover:text-black hover:border-none cursor-pointer text-xs">
                           {{ submenu.btnName }}
                         </span>
                       </div>
                     </li>
-                  </ul>
-                </div>
-              </div>
+                  </SwiperSlide>
+                </Swiper>
+                <li class="w-[120px] mr-0" v-for="submenu in menu.children" :key="submenu" v-else>
+                  <router-link :to="submenu.href" v-if="menu.type != 'video'">
+                    <div class="w-[120px]">
+                      <div class="flex items-center justify-center h-[95px]">
+                        <img :src="submenu.image" alt="LG KYQP" class="h-[60px]" />
+                      </div>
+                      <div class="text-center text-sm text-[#d7d7d7] leading-[14px] pb-4">
+                        {{ submenu.name }}
+                      </div>
+                      <span v-if="menu.type == 'sports'" @click="goToSportsPage(submenu.name)"
+                        class="flex justify-center items-center mx-auto w-[107px] h-[40px] rounded-[20px] box-border text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s] hover:bg-[#fbe59c] hover:text-black hover:border-none cursor-pointer text-xs">
+                        {{ submenu.btnName }}
+                      </span>
+                      <span v-else
+                        class="flex justify-center items-center mx-auto w-[107px] h-[40px] rounded-[20px] box-border text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s] hover:bg-[#fbe59c] hover:text-black hover:border-none cursor-pointer text-xs">
+                        {{ submenu.btnName }}
+                      </span>
+                    </div>
+                  </router-link>
+                  <div class="w-[120px]" v-else>
+                    <div class="flex items-center justify-center h-[95px]">
+                      <img :src="submenu.image" alt="LG KYQP" class="h-[60px]" />
+                    </div>
+                    <div class="text-center text-sm text-[#d7d7d7] leading-[14px] pb-4">
+                      {{ submenu.name }}
+                    </div>
+                    <span @click="redirectRealGame(submenu.redirect)"
+                      class="flex justify-center items-center mx-auto w-[107px] h-[40px] rounded-[20px] box-border text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s] hover:bg-[#fbe59c] hover:text-black hover:border-none cursor-pointer text-xs">
+                      {{ submenu.btnName }}
+                    </span>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -833,7 +866,8 @@ import { ogGameStore } from "../../store/og_game";
 import { agGameStore } from "../../store/ag_game";
 import { bbinGameStore } from "../../store/bbin_game";
 import { useSysConfigStore } from "../../store/sysConfig";
-import {showToast} from 'vant'
+import { APP_URL } from "../../config";
+import { showToast } from 'vant'
 export default {
   name: "Header",
   setup() {
@@ -860,6 +894,84 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
+    goToSportsPage: function (name) {
+      if (!localStorage.getItem("token")) {
+        showToast("您还没有登录或登录超时，请重新登录......");
+        return;
+      } else {
+        switch (name) {
+          case "足球":
+            window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=ft`, '_blank');
+            break;
+          case "篮球":
+            window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=bk`, '_blank');
+            break;
+        }
+      }
+    },
+    goToLotteryPage: function (name) {
+      if (!localStorage.getItem("token")) {
+        showToast("您还没有登录或登录超时，请重新登录......");
+        return;
+      } else {
+        switch (name) {
+          case "澳门六合彩":
+            window.open(`${APP_URL}/#/macao-mark-six?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "香港六合彩":
+            window.open(`${APP_URL}/#/mark-six?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "重庆时时彩":
+            window.open(`${APP_URL}/#/alwayscolor/cqssc?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "河内五分彩":
+            window.open(`${APP_URL}/#/alwayscolor/ffc5?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "澳洲幸运5":
+            window.open(`${APP_URL}/#/alwayscolor/azxy5?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "澳洲幸运10":
+            window.open(`${APP_URL}/#/alwayscolor/azxy10?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "幸运飞艇":
+            window.open(`${APP_URL}/#/alwayscolor/xyft?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "北京PK拾":
+            window.open(`${APP_URL}/#/alwayscolor/bjpk?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "天津时时彩":
+            window.open(`${APP_URL}/#/alwayscolor/tjssc?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "新疆时时彩":
+            window.open(`${APP_URL}/#/alwayscolor/jxssc?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "重庆十分彩":
+            window.open(`${APP_URL}/#/alwayscolor/cqsf?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "广东十分彩":
+            window.open(`${APP_URL}/#/alwayscolor/gdsf?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "广西十分彩":
+            window.open(`${APP_URL}/#/alwayscolor/gxsf?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "天津十分彩":
+            window.open(`${APP_URL}/#/alwayscolor/tjsf?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "上海时时乐":
+            window.open(`${APP_URL}/#/alwayscolor/shssl?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "广东11选5":
+            window.open(`${APP_URL}/#/alwayscolor/gd11?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "福彩3D":
+            window.open(`${APP_URL}/#/alwayscolor/d3?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "排列3":
+            window.open(`${APP_URL}/#/alwayscolor/p3?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+        }
+      }
+    },
     redirectRealGame: async function (redirect) {
       if (this.user.id == undefined) {
         showToast("您还没有登录或登录超时，请重新登录......");

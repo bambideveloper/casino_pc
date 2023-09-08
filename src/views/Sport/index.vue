@@ -35,55 +35,18 @@
           </dd>
         </dl>
         <ul class="px-[50px]">
-          <li class="inline-block py-[10px] px-[30px]">
-            <router-link
-              to="/imsports"
-              target="_blank"
-              v-if="authUser !== null"
-              class="w-[185px] h-[54px] block text-center leading-[54px] rounded-[27px] text-[26px] text-[#fbe59c] bg-white box-shadow hover:text-black sport-btn cursor-pointer"
-            >
-              IM体育
-            </router-link>
+          <li class="inline-block py-[10px] px-[30px]" @click="goToSportsPage('足球')">
             <span
-              v-else
               class="w-[185px] h-[54px] block text-center leading-[54px] rounded-[27px] text-[26px] text-[#fbe59c] bg-white box-shadow hover:text-black sport-btn cursor-pointer"
             >
-              IM体育
+            足球
             </span>
           </li>
-          <li class="inline-block py-[10px] px-[30px]">
+          <li class="inline-block py-[10px] px-[30px]" @click="goToSportsPage('篮球')">
             <span
               class="w-[185px] h-[54px] block text-center leading-[54px] rounded-[27px] text-[26px] text-[#fbe59c] bg-white box-shadow hover:text-black sport-btn cursor-pointer"
             >
-              沙巴体育
-            </span>
-          </li>
-          <li class="inline-block py-[10px] px-[30px]">
-            <span
-              class="w-[185px] h-[54px] block text-center leading-[54px] rounded-[27px] text-[26px] text-[#fbe59c] bg-white box-shadow hover:text-black sport-btn cursor-pointer"
-            >
-              皇冠体育
-            </span>
-          </li>
-          <li class="inline-block py-[10px] px-[30px]">
-            <span
-              class="w-[185px] h-[54px] block text-center leading-[54px] rounded-[27px] text-[26px] text-[#fbe59c] bg-white box-shadow hover:text-black sport-btn cursor-pointer"
-            >
-              FB体育
-            </span>
-          </li>
-          <li class="inline-block py-[10px] px-[30px]">
-            <span
-              class="w-[185px] h-[54px] block text-center leading-[54px] rounded-[27px] text-[26px] text-[#fbe59c] bg-white box-shadow hover:text-black sport-btn cursor-pointer"
-            >
-              开元体育
-            </span>
-          </li>
-          <li class="inline-block py-[10px] px-[30px]">
-            <span
-              class="w-[185px] h-[54px] block text-center leading-[54px] rounded-[27px] text-[26px] text-[#fbe59c] bg-white box-shadow hover:text-black sport-btn cursor-pointer"
-            >
-              PM体育
+            篮球
             </span>
           </li>
         </ul>
@@ -92,12 +55,29 @@
   </div>
 </template>
 <script>
+import { APP_URL } from '../../config';
 export default {
   data() {
     return {
-      loggedUser: localStorage.getItem("authUser"),
     };
   },
+  methods: {
+    goToSportsPage: function(name) {      
+      if (!localStorage.getItem("token")) {
+        showToast("您还没有登录或登录超时，请重新登录......");
+        return;
+      } else {
+        switch (name) {
+          case "足球":
+            window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=ft`, '_blank');
+            break;
+          case "篮球":
+            window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=bk`, '_blank');
+            break;
+        }
+      }
+    },
+  }
 };
 </script>
 <style scoped>

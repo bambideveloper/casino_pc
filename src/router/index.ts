@@ -29,7 +29,7 @@ const router = createRouter({
       component: () => import("../views/Video/index.vue"),
     },
     {
-      path: "/hall/lottery/:typeId",
+      path: "/hall/lottery",
       name: "lottery",
       component: () => import("../views/Lottery/index.vue"),
     },
