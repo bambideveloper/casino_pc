@@ -3,10 +3,15 @@ import { ref, onMounted } from 'vue';
 import Layout from "@/components/layout/Layout.vue";
 import { useAuthStore } from './store/auth';
 import { storeToRefs } from 'pinia';
+import { MOBILE_URL } from './config';
 
 const { getProfile } = useAuthStore();
 
 onMounted(async () => {
+  const width = window.visualViewport.width;
+  if (width < 600) {
+    window.location.href = MOBILE_URL;
+  }
   if (localStorage.getItem("token")) {
     await getProfile(localStorage.getItem("token"))
   }

@@ -13,6 +13,7 @@ export const FILE_BASE_URL = configStatic.VITE_FILE_BASE_URL;
 export const SERVICE_URL = configStatic.VITE_SERVICE_URL;
 export const LY_PAY_URL = configStatic.VITE_LY_PAY_URL;
 export const APP_URL = configStatic.VITE_APP_URL
+export const MOBILE_URL = configStatic.VITE_MOBILE_URL;
 
 export const MATCH_SPORT = "/user/match-sport";
 export const GET_FT_DATA = "/ft-data";
