@@ -3,6 +3,7 @@
 // export const VITE_SOCKET_URL = "https://socket.pgdemo123.com"
 // export const VITE_FILE_BASE_URL = "https://api.pgdemo123.com/"
 // export const VITE_APP_URL = "https://pgdemo123.com"
+
 const configStatic={};
 
 configStatic.VITE_SERVICE_URL = "https://wap.hg909c.com"

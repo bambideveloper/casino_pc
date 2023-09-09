@@ -8,7 +8,7 @@
 
 export const BASE_URL = configStatic.VITE_BASE_URL;
 export const HOST_URL = configStatic.VITE_HOST_URL;
-export const SOCKET_URL = configStatic.ITE_SOCKET_URL;
+export const SOCKET_URL = configStatic.VITE_SOCKET_URL;
 export const FILE_BASE_URL = configStatic.VITE_FILE_BASE_URL;
 export const SERVICE_URL = configStatic.VITE_SERVICE_URL;
 export const LY_PAY_URL = configStatic.VITE_LY_PAY_URL;
