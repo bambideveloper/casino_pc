@@ -686,7 +686,7 @@ const menuList = ref([
           </li>
         </ul>
       </div>
-      <div v-if="user?.UserName" class="flex itemx-center right-menu text-black text-sm">
+      <div v-if="user?.id" class="flex itemx-center right-menu text-black text-sm">
         <span class="text-black text-sm">ID: {{ user?.id }}</span>
         <img src="@/assets/images/vip_1.png" alt="vip" class="max-h-[20px] ml-5" />
         <div class="pl-5 text-black text-sm">
@@ -882,7 +882,6 @@ export default {
       showBackToTop: false,
       username: "",
       password: "",
-      user: null,
     };
   },
   async mounted() {
@@ -1075,7 +1074,6 @@ export default {
   computed: {
     user: function () {
       const { getUser } = useAuthStore();
-      this.user = getUser;
       return getUser;
     },
     token: function () {

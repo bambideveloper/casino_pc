@@ -9,7 +9,6 @@ const { getProfile } = useAuthStore();
 
 onMounted(async () => {
   const width = window.visualViewport.width;
-  console.log(width);
   if (width < 600) {
     window.location.href = MOBILE_URL;
   }
