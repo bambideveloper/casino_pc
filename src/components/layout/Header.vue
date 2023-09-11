@@ -895,7 +895,7 @@ export default {
   methods: {
     goToSportsPage: function (name) {
       if (!localStorage.getItem("token")) {
-        showToast("您还没有登录或登录超时，请重新登录......");
+        showToast("您还没有登录或登录超时，请重新登录...");
         return;
       } else {
         switch (name) {
@@ -910,7 +910,7 @@ export default {
     },
     goToLotteryPage: function (name) {
       if (!localStorage.getItem("token")) {
-        showToast("您还没有登录或登录超时，请重新登录......");
+        showToast("您还没有登录或登录超时，请重新登录...");
         return;
       } else {
         switch (name) {

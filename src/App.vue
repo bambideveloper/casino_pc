@@ -7,11 +7,15 @@ import { MOBILE_URL } from './config';
 
 const { getProfile } = useAuthStore();
 
-onMounted(async () => {
+const handleResize = () => {
   const width = window.visualViewport.width;
   if (width < 600) {
     window.location.href = MOBILE_URL;
   }
+}
+
+onMounted(async () => {
+  window.addEventListener("resize", handleResize)
   if (localStorage.getItem("token")) {
     await getProfile(localStorage.getItem("token"))
   }

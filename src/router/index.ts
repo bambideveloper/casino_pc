@@ -39,6 +39,16 @@ const router = createRouter({
       component: () => import("../views/Sport/index.vue"),
     },
     {
+      path: "/hall/sport/ft",
+      name: "FootBall",
+      component: () => import("../views/Sport/ft/index.vue"),
+    },
+    {
+      path: "/hall/sport/bk",
+      name: "BasketBall",
+      component: () => import("../views/Sport/index.vue"),
+    },
+    {
       path: "/hall/e-competition",
       name: "e-competition",
       component: () => import("../views/Competition/index.vue"),
