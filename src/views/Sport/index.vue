@@ -50,7 +50,7 @@
 import { APP_URL } from '../../config';
 import { ref } from 'vue';
 import { showToast } from 'vant';
-import {useRouter} from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
@@ -61,7 +61,7 @@ const goToSportsPage = (name) => {
   } else {
     switch (name) {
       case "足球":
-        router.push({name: "FootBall"})
+        router.push({ name: "FootBall" });
         // window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=ft`, '_blank');
         break;
       case "篮球":
@@ -84,11 +84,7 @@ const goToSportsPage = (name) => {
 }
 
 .sport-btn:hover {
-  background: -webkit-gradient(linear,
-      left top,
-      right top,
-      from(#fff1c5),
-      to(#e9d481));
+  background: -webkit-gradient(linear, left top, right top, from(#fff1c5), to(#e9d481));
   background: -o-linear-gradient(left, #fff1c5, #e9d481);
   background: linear-gradient(90deg, #fff1c5, #e9d481);
 }
@@ -165,4 +161,5 @@ const goToSportsPage = (name) => {
 .image-button {
   background: url("@/assets/images/fish/btn-2.png");
   transition: all 0.5s ease 0s;
-}</style>
+}
+</style>

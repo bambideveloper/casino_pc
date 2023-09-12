@@ -625,13 +625,13 @@ const menuList = ref([
       {
         name: "足球",
         btnName: "进入平台",
-        href: "/hall/sport",
+        href: "/hall/sport/ft",
         image: new URL("@/assets/images/sport/ball_16.png", import.meta.url),
       },
       {
         name: "篮球",
         btnName: "进入平台",
-        href: "/hall/sport",
+        href: "/hall/sport/bk",
         image: new URL("@/assets/images/sport/ball_07.png", import.meta.url),
       },
     ],
@@ -805,11 +805,7 @@ const menuList = ref([
                       <div class="text-center text-sm text-[#d7d7d7] leading-[14px] pb-4">
                         {{ submenu.name }}
                       </div>
-                      <span v-if="menu.type == 'sports'" @click="goToSportsPage(submenu.name)"
-                        class="flex justify-center items-center mx-auto w-[107px] h-[40px] rounded-[20px] box-border text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s] hover:bg-[#fbe59c] hover:text-black hover:border-none cursor-pointer text-xs">
-                        {{ submenu.btnName }}
-                      </span>
-                      <span v-else
+                      <span
                         class="flex justify-center items-center mx-auto w-[107px] h-[40px] rounded-[20px] box-border text-[#fbe59c] border-2 border-solid border-[#fbe59c] transition-[.5s] hover:bg-[#fbe59c] hover:text-black hover:border-none cursor-pointer text-xs">
                         {{ submenu.btnName }}
                       </span>
@@ -868,6 +864,7 @@ import { bbinGameStore } from "../../store/bbin_game";
 import { useSysConfigStore } from "../../store/sysConfig";
 import { APP_URL } from "../../config";
 import { showToast } from 'vant'
+import router from "../../router";
 export default {
   name: "Header",
   setup() {
@@ -900,10 +897,10 @@ export default {
       } else {
         switch (name) {
           case "足球":
-            window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=ft`, '_blank');
+            // window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=ft`, '_blank');
             break;
           case "篮球":
-            window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=bk`, '_blank');
+            // window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=bk`, '_blank');
             break;
         }
       }

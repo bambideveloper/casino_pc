@@ -1,7 +1,7 @@
 <template>
-    <div style="height: 90vh; overflow-y: auto">
+    <div :style="{ height: loading || changedFTDataList.length === 0 ? '90vh' : 'unset' }">
         <van-loading color="#1989fa" class="loading-position" v-if="loading" size="60" />
-        <div style="text-align: center;" v-if="changedFTDataList.length === 0 && !loading">没有数据</div>
+        <div class="text-center font-bold text-[20px] mt-[20px] text-white" v-if="changedFTDataList.length === 0 && !loading">没有数据</div>
         <div class="game-list" v-for="(item, index) in changedFTDataList" :key="index">
             <div class="divide-background"></div>
             <div class="center-title" @click="showDetail(item['lid'])">
@@ -28,12 +28,22 @@
                             @click="removeFavorite(item.lid, data.id)">
                     </div>
                     <div class="table-text-r" v-for="(num, numIndex) in datalist.nums" :key="numIndex">
-                        <div v-if="num.type == 1" @click="handleModal(item, data, datalist, num, numIndex)"
-                            :class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
-                            class="item-background">
-                            <span>{{ num.text }}</span>
-                            <span class="font-bold text-[14px]">{{ num.num }}</span>
-                        </div>
+                        <template v-if="numIndex < 3">
+                            <div v-if="num.type == 1" @click="handleModal(item, data, datalist, num, numIndex)"
+                                :class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
+                                class="item-background">
+                                <span>{{ num.text }}</span>
+                                <span class="font-bold text-[14px]">{{ num.num }}</span>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div v-if="num.type == 1" @click="handleModal1(item, data, datalist, num, numIndex)"
+                                :class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
+                                class="item-background">
+                                <span>{{ num.text }}</span>
+                                <span class="font-bold text-[14px]">{{ num.num }}</span>
+                            </div>
+                        </template>
                         <div class="lock" v-if="num.type == 2">
                             <img src="@/assets/images/stadiums/lock.png" alt="">
                         </div>
@@ -55,7 +65,7 @@
                     v-if="summaryLoading && data.tepe[0].type == 2" size="40" />
                 <div v-else class="summary"
                     :class="{ full_court_show: data.tepe[0].type == 2, full_court_hidden: data.tepe[0].type == 1 }">
-                    <div class="summary-center">
+                    <div class="summary-center" style="border-bottom: 2px solid #ededed;">
                         <div class="summary-title">
                             <p></p>
                             <p>{{ data.fullCourt1.title[0] }}</p>
@@ -131,7 +141,7 @@
                                 <span>{{ num.text }}</span>
                                 <span class="font-bold text-[14px]">{{ num.num }}</span>
                             </div>
-                            <div class="lock" v-if="num.type == 2"  style="width: 140px;">
+                            <div class="lock" v-if="num.type == 2" style="width: 140px;">
                                 <img src="@/assets/images/stadiums/lock.png" alt="">
                             </div>
                         </div>
@@ -612,6 +622,54 @@ export default defineComponent({
                     if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num) > 0) {
                         this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeDown = true;
                     } else if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num) < 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeUp = true;
+                    }
+
+                    if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][4].num) > 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeDown = true;
+                    } else if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][4].num) < 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeUp = true;
+                    }
+
+                    if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][4].num) > 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeDown = true;
+                    } else if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][4].num) < 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeUp = true;
+                    }
+
+                    if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][5].num) > 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeDown = true;
+                    } else if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][5].num) < 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeUp = true;
+                    }
+
+                    if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][5].num) > 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeDown = true;
+                    } else if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][5].num) < 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeUp = true;
+                    }
+
+                    if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][6].num) > 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeDown = true;
+                    } else if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][6].num) < 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeUp = true;
+                    }
+
+                    if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][6].num) > 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeDown = true;
+                    } else if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][6].num) < 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeUp = true;
+                    }
+
+                    if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][7].num) > 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeDown = true;
+                    } else if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][7].num) < 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeUp = true;
+                    }
+
+                    if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][7].num) > 0) {
+                        this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeDown = true;
+                    } else if ((this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].num - this.tempFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][7].num) < 0) {
                         this.changedFTDataList[i]["gameList"][j]["fullCourt1"]["data"][1]["nums"][3].colorChangeUp = true;
                     }
 
@@ -1707,7 +1765,6 @@ export default defineComponent({
         },
         handleModal: function (leagueData, gameData, dataList, rateData, scoreIndex) {
             if (this.user.id == undefined) {
-                router.push({ name: "login" });
                 return;
             }
             if (gameData.titleList[scoreIndex + 1] == "让球" && this.user.FT_RE_Bet == 0) {
@@ -1743,9 +1800,7 @@ export default defineComponent({
             else this.openModal = true;
         },
         handleModal1: function (leagueData, gameData, dataList, rateData, scoreIndex) {
-            console.log(rateData);
             if (this.user.id == undefined) {
-                router.push({ name: "login" });
                 return;
             }
             if (gameData.titleList[scoreIndex + 1] == "半场让球" && this.user.FT_RE_Bet == 0) {
@@ -1891,9 +1946,9 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 .loading-position {
-    position: absolute;
-    left: 50%;
-    top: 30%;
+	margin-top: 200px;
+	position: absolute;
+	left: 50%;
 }
 
 .van-loading__spinner {

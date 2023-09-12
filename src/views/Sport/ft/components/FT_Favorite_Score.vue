@@ -1,31 +1,29 @@
 <template>
-	<div :style="{ height: loading || changedFTScoreDataList.length === 0 ? '90vh' : 'unset' }">
-		<van-loading color="#1989fa" class="loading-position" v-if="loading" size="60" />
-		<div style="text-align: center; color: white; font-size: 20px; font-weight: bold; margin-top: 20px"
-			v-if="changedFTScoreDataList.length === 0 && !loading">没有数据</div>
+	<div>
+		<van-loading color="#1989fa" class="loading-position" v-if="loading" size="40" />
+		<div style="text-align: center;" v-if="changedFTScoreDataList.length === 0 && !loading">没有数据</div>
 		<div v-for="(lidItem, lidItemIndex) in changedFTScoreDataList" :key="lidItemIndex + 100">
 			<div class="divide-background"></div>
 			<div class="center_title" @click="showDetail(lidItem['lid'])">
+				<span>{{ lidItem.name }}</span>
 				<img :src="lidItem.icon" alt="">
-				<span class="ml-[10px] font-[600]">{{ lidItem.name }}</span>
 			</div>
 			<div :class="{ detail_show: lidItem['show'], detail_hide: !lidItem['show'] }"
 				v-for="(gameItem, gameItemInex) in lidItem['gameList']" :key="gameItemInex">
 				<div class="ranks">
 					<div class="ranks_l">
-						<div class="ranks_item text-[14px] font-bold">
+						<div class="ranks_item">
 							<span>{{ gameItem["MB_Ball"] }}</span>
-							<font color="black">{{ gameItem["mbTeam"] }}</font>
+							{{ gameItem["mbTeam"] }}
 						</div>
-						<div class="ranks_item text-[14px] font-bold">
+						<div class="ranks_item">
 							<span>{{ gameItem["TG_Ball"] }}</span>
-							<font color="black">{{ gameItem["tgTeam"] }}</font>
+							{{ gameItem["tgTeam"] }}
 						</div>
 					</div>
 					<div class="ranks_r">
-						<span>{{ gameItem["playTitle"] }}</span>
+						<span></span>
 						<span class="">{{ gameItem["time"] }}</span>
-						<img src="@/assets/images/stadiums/c-icon.png" alt="">
 					</div>
 				</div>
 				<div class="score_box" v-for="(scoreItem, scoreListIndex) in gameItem['scoreList']" :key="scoreListIndex">
@@ -38,7 +36,7 @@
 									:class="{ item_background_up: scores.colorChangeUp, item_background_down: scores.colorChangeDown }"
 									@click="handleModal(lidItem, gameItem, scores)">
 									<span>{{ scores.text }}</span>
-									<span class="font-bold text-[14px]">{{ scores.num }}</span>
+									<span>{{ scores.num }}</span>
 								</div>
 								<div class="lock" v-if="scores.state == 2">
 									<img src="@/assets/images/stadiums/lock.png" alt="">
@@ -48,20 +46,23 @@
 						<div class="score_other score_item" :class="{ score_item_hide: scoreItem.type == 2 }"
 							@click="handleOtherModal(lidItem, gameItem, scoreItem)">
 							<span>其他比分</span>
-							<span class="font-bold text-[14px]">{{ scoreItem.other }}</span>
+							<span>{{ scoreItem.other }}</span>
 						</div>
+					</div>
+					<div class="more" @click="moreShow(lidItem['lid'], gameItemInex, scoreListIndex)">
+						查看更多
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- <OrderModal v-if="openModal" :bettingOrderData="bettingOrderData" :bettingType="bettingType" @close="closeModal" /> -->
+		<OrderModal v-if="openModal" :bettingOrderData="bettingOrderData" :bettingType="bettingType" @close="closeModal" />
 	</div>
 </template>
 
 <script>
 // import OrderModal from "@/views/Stadium/components/Ordermodal.vue"
 import { defineComponent } from "vue";
-import { stadiumStore } from "@/store/stadium";
+import { bettingStore } from "@/store/betting";
 import { useAuthStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
 import { showToast } from 'vant';
@@ -69,13 +70,9 @@ import router from "@/router";
 export default defineComponent({
 	name: "other",
 	setup() {
-		const { getFTScoreInPlayDataList } = stadiumStore();
-		const { getFTScoreInPlayLists } = storeToRefs(stadiumStore());
-		const ftScoreDataList = getFTScoreInPlayLists.value;
-		return { getFTScoreInPlayDataList, ftScoreDataList }
 	},
 	components: {
-		// OrderModal
+		OrderModal
 	},
 	data() {
 		return {
@@ -105,6 +102,10 @@ export default defineComponent({
 		}
 	},
 	computed: {
+		favoriteList: function () {
+			const { getFavoriteList } = bettingStore();
+			return getFavoriteList;
+		},
 		user: function () {
 			const { getUser } = useAuthStore();
 			return getUser;
@@ -116,7 +117,7 @@ export default defineComponent({
 		connect: function () {
 			console.log('socket to notification channel connected')
 		},
-		receivedFTInPlayScoreData(data) {
+		receivedFTFavoriteScoreData(data) {
 			this.loading = false;
 			console.log('receiveFTData', data);
 			if (data == null || data.length == 0) return;
@@ -163,16 +164,6 @@ export default defineComponent({
 					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][2].num) < 0) {
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][2].colorChangeUp = true;
 					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][3].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][3].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][3].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][3].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][4].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][4].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][4].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][0][4].colorChangeUp = true;
-					}
 
 					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][0].num) > 0) {
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][0].colorChangeDown = true;
@@ -188,16 +179,6 @@ export default defineComponent({
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][2].colorChangeDown = true;
 					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][2].num) < 0) {
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][2].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][3].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][3].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][3].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][3].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][4].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][4].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][4].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][1][4].colorChangeUp = true;
 					}
 
 					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][0].num) > 0) {
@@ -215,16 +196,6 @@ export default defineComponent({
 					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][2].num) < 0) {
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][2].colorChangeUp = true;
 					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][3].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][3].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][3].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][3].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][4].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][4].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][4].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][2][4].colorChangeUp = true;
-					}
 
 					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][0].num) > 0) {
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][0].colorChangeDown = true;
@@ -240,16 +211,6 @@ export default defineComponent({
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][2].colorChangeDown = true;
 					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][2].num) < 0) {
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][2].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][3].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][3].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][3].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][3].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][4].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][4].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][4].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][3][4].colorChangeUp = true;
 					}
 
 					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][0].num) > 0) {
@@ -267,15 +228,60 @@ export default defineComponent({
 					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][2].num) < 0) {
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][2].colorChangeUp = true;
 					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][3].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][3].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][3].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][3].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][3].colorChangeUp = true;
+
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].colorChangeUp = true;
 					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][4].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][4].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][4].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][4].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][4].colorChangeUp = true;
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].colorChangeUp = true;
+					}
+
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].colorChangeUp = true;
+					}
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].colorChangeUp = true;
+					}
+
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].colorChangeUp = true;
+					}
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][2].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][2].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].colorChangeUp = true;
+					}
+
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].colorChangeUp = true;
+					}
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].colorChangeUp = true;
+					}
+
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].colorChangeUp = true;
+					}
+					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].num) > 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].colorChangeDown = true;
+					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].num) < 0) {
+						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].colorChangeUp = true;
 					}
 				}
 			}
@@ -283,14 +289,14 @@ export default defineComponent({
 		}
 	},
 	async mounted() {
-		this.$socket.emit("sendCorrectScoreMessage")
-		// await this.getFTScoreInPlayDataList(this.conditionItem);
-		// console.log(this.ftScoreDataList);
-		// this.ftScoreDataChange(this.ftScoreDataList);
-		// this.loading = false;
+		if (this.favoriteList.length > 0) {
+			this.$socket.emit("sendCorrectScoreFavorite", this.favoriteList)
+		} else {
+			this.loading = false;
+		}
 	},
 	unmounted() {
-		this.$socket.emit("stopCorrectScoreMessage")
+		this.$socket.emit("stopCorrectScoreFavorite")
 	},
 	methods: {
 		moreShow: function (lid, gameItemInex, scoreListIndex) {
@@ -343,9 +349,7 @@ export default defineComponent({
 				}
 				let gameList = [];
 				ftData.forEach(item => {
-					// console.log(item["RETIME_SET"].split(" ")[0]);
-					let playTitle = item["RETIME_SET"] == "半场" ? item["RETIME_SET"] : item["RETIME_SET"].split(" ")[1].split(":")[0] > 45 ? "下半场" : "上半场";
-					let time = item["RETIME_SET"] == "HT" ? "" : item["RETIME_SET"].split(" ")[1];
+					let time = item["M_Start"];
 					let mbTeam = item["MB_Team"];
 					let tgTeam = item["TG_Team"];
 					let gameData = {
@@ -353,7 +357,6 @@ export default defineComponent({
 						ecid: item["ECID"],
 						mbTeam: mbTeam,
 						tgTeam: tgTeam,
-						playTitle: playTitle,
 						time: time,
 						MB_Ball: item["MB_Ball"],
 						TG_Ball: item["TG_Ball"],
@@ -361,6 +364,7 @@ export default defineComponent({
 							{
 								lineType: 4,
 								rType: "OVH",
+								type: 2,
 								colorChangeUp: false,
 								colorChangeDOwn: false,
 								other: item["UP5"],
@@ -370,6 +374,7 @@ export default defineComponent({
 										{
 											lineType: 4,
 											rType: "H1C0",
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '1-0',
@@ -379,6 +384,7 @@ export default defineComponent({
 										{
 											lineType: 4,
 											rType: "H0C0",
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '0-0',
@@ -388,15 +394,19 @@ export default defineComponent({
 										{
 											lineType: 4,
 											rType: "H0C1",
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '0-1',
 											num: item["MB0TG1"],
 											state: item["MB0TG1"] == 0 ? 2 : 1
-										},
+										}
+									],
+									[
 										{
 											lineType: 4,
 											rType: "H2C0",
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '2-0',
@@ -406,25 +416,28 @@ export default defineComponent({
 										{
 											lineType: 4,
 											rType: "H1C1",
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '1-1',
 											num: item["MB1TG1"],
 											state: item["MB1TG1"] == 0 ? 2 : 1
 										},
-									],
-									[
 										{
 											lineType: 4,
 											rType: "H0C2",
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '0-2',
 											num: item["MB0TG2"],
 											state: item["MB0TG2"] == 0 ? 2 : 1
-										},
+										}
+									],
+									[
 										{
 											lineType: 4,
+											type: 1,
 											rType: "H2C1",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -434,6 +447,7 @@ export default defineComponent({
 										},
 										{
 											lineType: 4,
+											type: 1,
 											rType: "H2C2",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -443,15 +457,19 @@ export default defineComponent({
 										},
 										{
 											lineType: 4,
+											type: 1,
 											rType: "H1C2",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '1-2',
 											num: item["MB1TG2"],
 											state: item["MB1TG2"] == 0 ? 2 : 1
-										},
+										}
+									],
+									[
 										{
 											lineType: 4,
+											type: 1,
 											rType: "H3C0",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -459,10 +477,9 @@ export default defineComponent({
 											num: item["MB3TG0"],
 											state: item["MB3TG0"] == 0 ? 2 : 1
 										},
-									],
-									[
 										{
 											lineType: 4,
+											type: 1,
 											rType: "H3C3",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -472,15 +489,19 @@ export default defineComponent({
 										},
 										{
 											lineType: 4,
+											type: 1,
 											rType: "H0C3",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '0-3',
 											num: item["MB0TG3"],
 											state: item["MB0TG3"] == 0 ? 2 : 1
-										},
+										}
+									],
+									[
 										{
 											lineType: 4,
+											type: 1,
 											rType: "H3C1",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -490,6 +511,7 @@ export default defineComponent({
 										},
 										{
 											lineType: 4,
+											type: 1,
 											rType: "H4C4",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -499,6 +521,7 @@ export default defineComponent({
 										},
 										{
 											lineType: 4,
+											type: 1,
 											rType: "H1C3",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -510,6 +533,7 @@ export default defineComponent({
 									[
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H3C2",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -517,17 +541,22 @@ export default defineComponent({
 											num: item["MB3TG2"],
 											state: item["MB3TG2"] == 0 ? 2 : 1
 										},
+										{},
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H2C3",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '2-3',
 											num: item["MB2TG3"],
 											state: item["MB2TG3"] == 0 ? 2 : 1
-										},
+										}
+									],
+									[
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H4C0",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -535,17 +564,22 @@ export default defineComponent({
 											num: item["MB4TG0"],
 											state: item["MB4TG0"] == 0 ? 2 : 1
 										},
+										{},
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H1C3",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '1-3',
 											num: item["MB1TG3"],
 											state: item["MB1TG3"] == 0 ? 2 : 1
-										},
+										}
+									],
+									[
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H4C1",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -553,19 +587,22 @@ export default defineComponent({
 											num: item["MB4TG1"],
 											state: item["MB4TG1"] == 0 ? 2 : 1
 										},
-									],
-									[
+										{},
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H1C4",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '1-4',
 											num: item["MB1TG4"],
 											state: item["MB1TG4"] == 0 ? 2 : 1
-										},
+										}
+									],
+									[
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H4C2",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -573,17 +610,22 @@ export default defineComponent({
 											num: item["MB4TG2"],
 											state: item["MB4TG2"] == 0 ? 2 : 1
 										},
+										{},
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H2C4",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '2-4',
 											num: item["MB2TG4"],
 											state: item["MB2TG4"] == 0 ? 2 : 1
-										},
+										}
+									],
+									[
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H4C3",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -591,8 +633,10 @@ export default defineComponent({
 											num: item["MB4TG3"],
 											state: item["MB4TG3"] == 0 ? 2 : 1
 										},
+										{},
 										{
 											lineType: 4,
+											type: 2,
 											rType: "H3C4",
 											colorChangeUp: false,
 											colorChangeDOwn: false,
@@ -600,7 +644,7 @@ export default defineComponent({
 											num: item["MB3TG4"],
 											state: item["MB3TG4"] == 0 ? 2 : 1
 										}
-									],
+									]
 								]
 							}
 						],
@@ -614,7 +658,7 @@ export default defineComponent({
 		},
 		handleModal: function (leagueData, gameData, score) {
 			if (this.user.id == undefined) {
-				// router.push({ name: "login" });
+				router.push({ name: "login" });
 				return;
 			}
 			if (this.user.FT_PD_Bet == 0) {
@@ -627,8 +671,6 @@ export default defineComponent({
 			this.bettingOrderData["gameType"] = "FT";
 			this.bettingOrderData["mbTeam"] = gameData["mbTeam"];
 			this.bettingOrderData["tgTeam"] = gameData["tgTeam"];
-			this.bettingOrderData["m_ball"] = gameData["MB_Ball"];
-			this.bettingOrderData["t_ball"] = gameData["TG_Ball"];
 			this.bettingOrderData["rate"] = score.num;
 			this.bettingOrderData["league"] = leagueData.name;
 			this.bettingOrderData["title"] = " (滚球) 波胆";
@@ -638,23 +680,19 @@ export default defineComponent({
 		},
 		handleOtherModal: function (leagueData, gameData, scoreItem) {
 			if (this.user.id == undefined) {
-				// router.push({ name: "login" });
+				router.push({ name: "login" });
 				return;
 			}
 			if (this.user.FT_PD_Bet == 0) {
 				showToast("对不起,本场有下注金额最高:  RMB 0");
 				return;
 			}
-			console.log(scoreItem);
-			console.log(this.bettingOrderData);
 			this.bettingOrderData["lineType"] = scoreItem["lineType"];
 			this.bettingOrderData["r_type"] = scoreItem["rType"]
 			this.bettingOrderData["mID"] = gameData["id"];
 			this.bettingOrderData["gameType"] = "FT";
 			this.bettingOrderData["mbTeam"] = gameData["mbTeam"];
 			this.bettingOrderData["tgTeam"] = gameData["tgTeam"];
-			this.bettingOrderData["m_ball"] = gameData["MB_Ball"];
-			this.bettingOrderData["t_ball"] = gameData["TG_Ball"];
 			this.bettingOrderData["rate"] = scoreItem.other;
 			this.bettingOrderData["league"] = leagueData.name;
 			this.bettingOrderData["title"] = " (滚球) 波胆";
@@ -688,10 +726,10 @@ export default defineComponent({
 .center_title {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	height: 40px;
-	background-color: #ededed;
+	background-color: #F3FAFF;
 	padding: 0 14px;
-	cursor: pointer;
 
 	span {
 		font-size: 17px;
@@ -702,14 +740,6 @@ export default defineComponent({
 		width: 28px;
 		height: 28px;
 	}
-}
-
-.detail_show {
-	background: white;
-}
-
-.score_item {
-	background: #ffffff;
 }
 
 .score_item_show {
@@ -725,7 +755,7 @@ export default defineComponent({
 	align-items: center;
 	justify-content: space-between;
 	height: 65px;
-	background-color: rgba(237, 237, 237, 0.32);
+	background-color: #D8E0E6;
 	font-size: 12px;
 	padding: 8px 13px;
 
@@ -870,17 +900,11 @@ export default defineComponent({
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		cursor: pointer;
 
 		span:last-child {
 			color: #E80909;
 			margin-top: 6px;
 		}
-	}
-
-	.score_other:hover {
-		background-color: orange;
-		cursor: pointer;
 	}
 }
 </style>
