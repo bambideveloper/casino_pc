@@ -5,23 +5,23 @@
 		<div v-for="(lidItem, lidItemIndex) in changedFTScoreDataList" :key="lidItemIndex + 100">
 			<div class="divide-background"></div>
 			<div class="center_title" @click="showDetail(lidItem['lid'])">
-				<span>{{ lidItem.name }}</span>
 				<img :src="lidItem.icon" alt="">
+				<span class="ml-[10px] font-[600]">{{ lidItem.name }}</span>
 			</div>
 			<div :class="{ detail_show: lidItem['show'], detail_hide: !lidItem['show'] }"
 				v-for="(gameItem, gameItemInex) in lidItem['gameList']" :key="gameItemInex">
 				<div class="ranks">
 					<div class="ranks_l">
-						<div class="ranks_item">
+						<div class="ranks_item text-[14px] font-bold">
 							<span>{{ gameItem["MB_Ball"] }}</span>
 							{{ gameItem["mbTeam"] }}
 						</div>
-						<div class="ranks_item">
+						<div class="ranks_item text-[14px] font-bold">
 							<span>{{ gameItem["TG_Ball"] }}</span>
 							{{ gameItem["tgTeam"] }}
 						</div>
 					</div>
-					<div class="ranks_r">
+					<div class="ranks_r text-[14px] font-bold">
 						<span></span>
 						<span class="">{{ gameItem["time"] }}</span>
 					</div>
@@ -36,21 +36,18 @@
 									:class="{ item_background_up: scores.colorChangeUp, item_background_down: scores.colorChangeDown }"
 									@click="handleModal(lidItem, gameItem, scores)">
 									<span>{{ scores.text }}</span>
-									<span>{{ scores.num }}</span>
+									<span class="text-[14px] font-bold">{{ scores.num }}</span>
 								</div>
 								<div class="lock" v-if="scores.state == 2">
 									<img src="@/assets/images/stadiums/lock.png" alt="">
 								</div>
 							</div>
 						</div>
-						<div class="score_other score_item" :class="{ score_item_hide: scoreItem.type == 2 }"
+						<div class="score_other score_item"
 							@click="handleOtherModal(lidItem, gameItem, scoreItem)">
 							<span>其他比分</span>
 							<span>{{ scoreItem.other }}</span>
 						</div>
-					</div>
-					<div class="more" @click="moreShow(lidItem['lid'], gameItemInex, scoreListIndex)">
-						查看更多
 					</div>
 				</div>
 				<div style="text-align: center; color:red; font-weight: bold; margin-bottom: 10px;">半场波胆</div>
@@ -73,14 +70,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="score_other score_item" :class="{ score_item_hide: halfscoreItem.type == 2 }"
+						<div class="score_other score_item"
 							@click="handleOtherModal(lidItem, gameItem, halfscoreItem)">
 							<span>其他比分</span>
 							<span>{{ halfscoreItem.other }}</span>
 						</div>
-					</div>
-					<div class="more" @click="halfMoreShow(lidItem['lid'], gameItemInex, halfScoreListIndex)">
-						查看更多
 					</div>
 				</div>
 			</div>
@@ -262,61 +256,6 @@ export default defineComponent({
 					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][2].num) < 0) {
 						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][4][2].colorChangeUp = true;
 					}
-
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][0].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].colorChangeUp = true;
-					}
-
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][0].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][6][2].colorChangeUp = true;
-					}
-
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][0].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][2].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][7][2].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][5][2].colorChangeUp = true;
-					}
-
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][0].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][8][2].colorChangeUp = true;
-					}
-
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][0].colorChangeUp = true;
-					}
-					if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].num) > 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].colorChangeDown = true;
-					} else if ((this.tempFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].num - this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].num) < 0) {
-						this.changedFTScoreDataList[i]["gameList"][j]["scoreList"][0]["score"][9][2].colorChangeUp = true;
-					}
 				}
 			}
 
@@ -449,9 +388,7 @@ export default defineComponent({
 											text: '0-1',
 											num: item["MB0TG1"],
 											state: item["MB0TG1"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 4,
 											rType: "H2C0",
@@ -472,6 +409,8 @@ export default defineComponent({
 											num: item["MB1TG1"],
 											state: item["MB1TG1"] == 0 ? 2 : 1
 										},
+									],
+									[
 										{
 											lineType: 4,
 											rType: "H0C2",
@@ -481,9 +420,7 @@ export default defineComponent({
 											text: '0-2',
 											num: item["MB0TG2"],
 											state: item["MB0TG2"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 4,
 											rType: "H2C1",
@@ -513,9 +450,7 @@ export default defineComponent({
 											text: '1-2',
 											num: item["MB1TG2"],
 											state: item["MB1TG2"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 4,
 											rType: "H3C0",
@@ -526,6 +461,8 @@ export default defineComponent({
 											num: item["MB3TG0"],
 											state: item["MB3TG0"] == 0 ? 2 : 1
 										},
+									],
+									[
 										{
 											lineType: 4,
 											rType: "H3C3",
@@ -545,9 +482,7 @@ export default defineComponent({
 											text: '0-3',
 											num: item["MB0TG3"],
 											state: item["MB0TG3"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 4,
 											rType: "H3C1",
@@ -583,117 +518,106 @@ export default defineComponent({
 										{
 											lineType: 4,
 											rType: "H3C2",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '3-2',
 											num: item["MB3TG2"],
 											state: item["MB3TG2"] == 0 ? 2 : 1
 										},
-										{},
 										{
 											lineType: 4,
 											rType: "H2C3",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '2-3',
 											num: item["MB2TG3"],
 											state: item["MB2TG3"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 4,
 											rType: "H4C0",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '4-0',
 											num: item["MB4TG0"],
 											state: item["MB4TG0"] == 0 ? 2 : 1
 										},
-										{},
 										{
 											lineType: 4,
 											rType: "H1C3",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '1-3',
 											num: item["MB1TG3"],
 											state: item["MB1TG3"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 4,
 											rType: "H4C1",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '4-1',
 											num: item["MB4TG1"],
 											state: item["MB4TG1"] == 0 ? 2 : 1
 										},
-										{},
+									],
+									[
 										{
 											lineType: 4,
 											rType: "H1C4",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '1-4',
 											num: item["MB1TG4"],
 											state: item["MB1TG4"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 4,
 											rType: "H4C2",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '4-2',
 											num: item["MB4TG2"],
 											state: item["MB4TG2"] == 0 ? 2 : 1
 										},
-										{},
 										{
 											lineType: 4,
 											rType: "H2C4",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '2-4',
 											num: item["MB2TG4"],
 											state: item["MB2TG4"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 4,
 											rType: "H4C3",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '4-3',
 											num: item["MB4TG3"],
 											state: item["MB4TG3"] == 0 ? 2 : 1
 										},
-										{},
 										{
 											lineType: 4,
 											rType: "H3C4",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '3-4',
 											num: item["MB3TG4"],
 											state: item["MB3TG4"] == 0 ? 2 : 1
 										}
-									]
+									],
 								]
 							}
 						],
@@ -737,9 +661,7 @@ export default defineComponent({
 											text: '0-1',
 											num: item["MB0TG1H"],
 											state: item["MB0TG1H"] == undefined || item["MB0TG1H"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 14,
 											rType: "H2C0",
@@ -760,6 +682,8 @@ export default defineComponent({
 											num: item["MB1TG1H"],
 											state: item["MB1TG1H"] == undefined || item["MB1TG1H"] == 0 ? 2 : 1
 										},
+									],
+									[
 										{
 											lineType: 14,
 											rType: "H0C2",
@@ -769,9 +693,7 @@ export default defineComponent({
 											text: '0-2',
 											num: item["MB0TG2H"],
 											state: item["MB0TG2H"] == undefined || item["MB0TG2H"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 14,
 											rType: "H2C1",
@@ -801,9 +723,7 @@ export default defineComponent({
 											text: '1-2',
 											num: item["MB1TG2H"],
 											state: item["MB1TG2H"] == undefined || item["MB1TG2H"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 14,
 											rType: "H3C0",
@@ -814,6 +734,8 @@ export default defineComponent({
 											num: item["MB3TG0H"],
 											state: item["MB3TG0H"] == undefined || item["MB3TG0H"] == 0 ? 2 : 1
 										},
+									],
+									[
 										{
 											lineType: 14,
 											rType: "H3C3",
@@ -833,9 +755,7 @@ export default defineComponent({
 											text: '0-3',
 											num: item["MB0TG3H"],
 											state: item["MB0TG3H"] == undefined || item["MB0TG3H"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 14,
 											rType: "H3C1",
@@ -871,117 +791,106 @@ export default defineComponent({
 										{
 											lineType: 14,
 											rType: "H3C2",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '3-2',
 											num: item["MB3TG2H"],
 											state: item["MB3TG2H"] == undefined || item["MB3TG2H"] == 0 ? 2 : 1
 										},
-										{},
 										{
 											lineType: 14,
 											rType: "H2C3",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '2-3',
 											num: item["MB2TG3H"],
 											state: item["MB2TG3H"] == undefined || item["MB2TG3H"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 14,
 											rType: "H4C0",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '4-0',
 											num: item["MB4TG0H"],
 											state: item["MB4TG0H"] == undefined || item["MB4TG0H"] == 0 ? 2 : 1
 										},
-										{},
 										{
 											lineType: 14,
 											rType: "H1C3",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '1-3',
 											num: item["MB1TG3H"],
 											state: item["MB1TG3H"] == undefined || item["MB1TG3H"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 14,
 											rType: "H4C1",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '4-1',
 											num: item["MB4TG1H"],
 											state: item["MB4TG1H"] == undefined || item["MB4TG1H"] == 0 ? 2 : 1
 										},
-										{},
+									],
+									[
 										{
 											lineType: 14,
 											rType: "H1C4",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '1-4',
 											num: item["MB1TG4H"],
 											state: item["MB1TG4H"] == undefined || item["MB1TG4H"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 14,
 											rType: "H4C2",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '4-2',
 											num: item["MB4TG2H"],
 											state: item["MB4TG2H"] == undefined || item["MB4TG2H"] == 0 ? 2 : 1
 										},
-										{},
 										{
 											lineType: 14,
 											rType: "H2C4",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '2-4',
 											num: item["MB2TG4H"],
 											state: item["MB2TG4H"] == undefined || item["MB2TG4H"] == 0 ? 2 : 1
-										}
-									],
-									[
+										},
 										{
 											lineType: 14,
 											rType: "H4C3",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '4-3',
 											num: item["MB4TG3H"],
 											state: item["MB4TG3H"] == undefined || item["MB4TG3H"] == 0 ? 2 : 1
 										},
-										{},
 										{
 											lineType: 14,
 											rType: "H3C4",
-											type: 2,
+											type: 1,
 											colorChangeUp: false,
 											colorChangeDOwn: false,
 											text: '3-4',
 											num: item["MB3TG4H"],
 											state: item["MB3TG4H"] == undefined || item["MB3TG4H"] == 0 ? 2 : 1
 										}
-									]
+									],
 								]
 							}
 						]
@@ -1050,6 +959,11 @@ export default defineComponent({
 <style scoped lang="scss">
 .detail_show {
 	display: block;
+	background: white;
+}
+
+.score_item {
+	background: #ffffff;
 }
 
 .detail_hide {
@@ -1065,10 +979,10 @@ export default defineComponent({
 .center_title {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
 	height: 40px;
-	background-color: #F3FAFF;
+	background-color: #ededed;
 	padding: 0 14px;
+	cursor: pointer;
 
 	span {
 		font-size: 17px;
@@ -1094,7 +1008,7 @@ export default defineComponent({
 	align-items: center;
 	justify-content: space-between;
 	height: 65px;
-	background-color: #D8E0E6;
+	background-color: rgba(237, 237, 237, 0.32);;
 	font-size: 12px;
 	padding: 8px 13px;
 

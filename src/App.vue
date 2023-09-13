@@ -7,6 +7,8 @@ import { MOBILE_URL } from './config';
 
 const { getProfile } = useAuthStore();
 
+const alertDialogVisible = ref(true);
+
 const handleResize = () => {
   const width = window.visualViewport.width;
   if (width < 600) {
@@ -24,9 +26,16 @@ onMounted(async () => {
 
 <template>
   <Layout />
+  <el-dialog v-model="alertDialogVisible" title="平台公告" width="60%" align-center>
+    <img src="@/assets/images/pc_1.gif" />
+  </el-dialog>
 </template>
 
 <style scoped>
+::deep(.el-overlay) {
+  background-color: #000000db;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

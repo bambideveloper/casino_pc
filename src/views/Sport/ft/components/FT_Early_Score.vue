@@ -80,7 +80,7 @@ export default defineComponent({
 		field: ""
 	},
 	components: {
-		OrderModal
+		// OrderModal
 	},
 	data() {
 		return {

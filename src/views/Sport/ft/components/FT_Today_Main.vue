@@ -1,19 +1,20 @@
 <template>
 	<div :style="{ height: loading || changedFTDataList.length === 0 ? '90vh' : 'unset' }">
 		<van-loading color="#1989fa" class="loading-position" v-if="loading" size="60" />
-		<div class="text-center font-bold text-[20px] mt-[20px] text-white" v-if="changedFTDataList.length === 0 && !loading">没有数据</div>
+		<div class="text-center font-bold text-[20px] mt-[20px] text-white"
+			v-if="changedFTDataList.length === 0 && !loading">没有数据</div>
 		<div class="game-list" v-for="(item, index) in changedFTDataList" :key="index">
 			<div class="divide-background"></div>
 			<div class="center-title" @click="showDetail(item['lid'])">
-                <img :src="item.icon" alt="">
-                <span class="ml-[10px] font-[600]">{{ item.name }}</span>
+				<img :src="item.icon" alt="">
+				<span class="ml-[10px] font-[600]">{{ item.name }}</span>
 			</div>
 			<div class="center-item" :class="{ detail_show: item['show'], detail_hide: !item['show'] }"
 				v-for="(data, index) in item.gameList" :key="index">
 				<div class="table-title table-list">
 					<div v-for="(title, index) in data.titleList" :key="index" style="margin-right: 8px;">
 						<span :style="{ marginRight: index == 0 ? 'auto' : 'unset', fontSize: '14px' }"
-                            class="font-bold mr-[5px]">{{ title }}</span>
+							class="font-bold mr-[5px]">{{ title }}</span>
 					</div>
 				</div>
 				<div class="table-text table-list" v-for="(datalist, scoreIndex) in data.scoreList" :key="scoreIndex">
@@ -28,12 +29,22 @@
 							@click="removeFavorite(item.lid, data.id)">
 					</div>
 					<div class="table-text-r" v-for="(num, numIndex) in datalist.nums" :key="numIndex">
-						<div v-if="num.type == 1" @click="handleModal(item, data, datalist, num, numIndex)"
-							:class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
-							class="item-background">
-							<span>{{ num.text }}</span>
-							<span>{{ num.num }}</span>
-						</div>
+						<template v-if="numIndex < 3">
+							<div v-if="num.type == 1" @click="handleModal(item, data, datalist, num, numIndex)"
+								:class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
+								class="item-background">
+								<span>{{ num.text }}</span>
+								<span class="font-bold text-[14px]">{{ num.num }}</span>
+							</div>
+						</template>
+						<template v-else>
+							<div v-if="num.type == 1" @click="handleModal1(item, data, datalist, num, numIndex)"
+								:class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
+								class="item-background">
+								<span>{{ num.text }}</span>
+								<span class="font-bold text-[14px]">{{ num.num }}</span>
+							</div>
+							</template>
 						<div class="lock" v-if="num.type == 2">
 							<img src="@/assets/images/stadiums/lock.png" alt="">
 						</div>
@@ -55,44 +66,38 @@
 					v-if="summaryLoading && data.tepe[0].type == 2" size="40" />
 				<div v-else class="summary"
 					:class="{ full_court_show: data.tepe[0].type == 2, full_court_hidden: data.tepe[0].type == 1 }">
-					<div class="summary-top">全场</div>
 					<div class="summary-center">
-						<div class="summary-title">{{ data.fullCourt1.title }}</div>
+						<div class="summary-title">
+							<p></p>
+							<p>{{ data.fullCourt1.title[0] }}</p>
+							<p>{{ data.fullCourt1.title[1] }}</p>
+						</div>
 						<div class="summary-item" v-for="(summary, fullCourtIndex1) in data.fullCourt1.data"
 							:key="fullCourtIndex1 + 600">
 							<div class="summary-item-l">
-								<!-- <span>{{ summary.goalsScored }}</span> -->
-								<span>0</span>
-								<span>{{ summary.name }}</span>
+								<span class="font-bold text-[14px]">0</span>
+								<span class="font-bold text-[14px]">{{ summary.name }}</span>
 							</div>
 							<div :class="{ summary_item_background: summaryitem.num == 0 }"
-								v-for="(summaryitem, k) in summary.nums" :key="k + 650">
-								<div class="summary-item-r" v-if="summaryitem.num != 0"
-									@click="handleSummaryModal1(item, data, data['fullCourt1']['title'], summary, summaryitem)"
-									:class="{ item_background_up: summaryitem.colorChangeUp, item_background_down: summaryitem.colorChangeDown }">
-									<span>{{ summaryitem.text }}</span>
-									<span>{{ summaryitem.num }}</span>
-								</div>
+								v-for="(summaryitem, k) in summary.nums" :key="k">
+								<template v-if="k < 4">
+									<div class="summary-item-r" v-if="summaryitem.num != 0"
+										@click="handleSummaryModal1(item, data, data['fullCourt1']['title'][0], summary, summaryitem)"
+										:class="{ item_background_up: summaryitem.colorChangeUp, item_background_down: summaryitem.colorChangeDown }">
+										<span>{{ summaryitem.text }}</span>
+										<span>{{ summaryitem.num }}</span>
+									</div>
+								</template>
+								<template v-else>
+									<div class="summary-item-r" v-if="summaryitem.num != 0"
+										@click="handleSummaryModal2(item, data, data['fullCourt1']['title'][1], summary, summaryitem)"
+										:class="{ item_background_up: summaryitem.colorChangeUp, item_background_down: summaryitem.colorChangeDown }">
+										<span>{{ summaryitem.text }}</span>
+										<span>{{ summaryitem.num }}</span>
+									</div>
+								</template>
 								<div class="summary-item-r" v-if="summaryitem.num == 0">
 									<img style="width: 13px" src="@/assets/images/stadiums/lock.png" alt="">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="summary-center">
-						<div class="summary-title">{{ data.fullCourt2.title }}</div>
-						<div v-for="(summary2, s) in data.fullCourt2.data" :key="s + 700">
-							<div class="summary-item">
-								<div v-for="(h, k) in summary2.nums" :key="k + 750">
-									<div class="summary-item-r summary-bottom" v-if="h.num != 0"
-										@click="handleSummaryModal2(item, data, data['fullCourt2']['title'], summary2, h)"
-										:class="{ item_background_up: h.colorChangeUp, item_background_down: h.colorChangeDown }">
-										<span>{{ h.text }}</span>
-										<span>{{ h.num }}</span>
-									</div>
-									<div class="summary-item-r summary-bottom summary_item_background" v-if="h.num == 0">
-										<img style="width: 13px" src="@/assets/images/stadiums/lock.png" alt="">
-									</div>
 								</div>
 							</div>
 						</div>
@@ -102,22 +107,21 @@
 					:class="{ corner_table_show: data.tepe[1].type == 2, corner_table_hide: data.tepe[1].type == 1 }">
 					<div class="table-title corner-table-list" style="margin-bottom: 20px; padding-right: 15px">
 						<div v-for="(title, index) in 	cornerTitleList" :key="index">
-							<span>{{ title }}</span>
+							<span style="margin-right: 20px;">{{ title }}</span>
 						</div>
 					</div>
 					<div class="table-text corner-table-list" v-for="(cornerData, cornerIndex) in data.cornerList"
 						:key="cornerIndex" style="padding-bottom: 10px; padding-right: 6px;">
 						<div class="table-text-l" v-if="cornerData.name">
-							<!-- <span>{{ cornerData.goalsScored }}</span> -->
-							<span>0</span>
-							<span>{{ cornerData.name }}</span>
+							<span class="font-bold text-[14px]">0</span>
+							<span class="font-bold text-[14px]">{{ cornerData.name }}</span>
 						</div>
 						<div class="table-text-r" v-for="(num, numIndex) in cornerData.nums" :key="numIndex">
 							<div v-if="num.type == 1" @click="handleCornerModal(item, data, cornerData, num, numIndex)"
 								:class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
 								class="item-background">
 								<span>{{ num.text }}</span>
-								<span>{{ num.num }}</span>
+								<span class="font-bold text-[14px]">{{ num.num }}</span>
 							</div>
 							<div class="lock" v-if="num.type == 2">
 								<img src="@/assets/images/stadiums/lock.png" alt="">
@@ -125,46 +129,20 @@
 						</div>
 					</div>
 				</div>
-				<div class="summary-over" @click="showMore(item['lid'], data.id)">
+				<div class="summary-over" @click="showMore(item['lid'], data.id)" style="cursor: pointer;">
 					查看更多
 				</div>
 				<div v-if="data.moreShow" style="margin-right: 6px;">
-					<div class="table-title table-list half-table-list">
-						<div v-for="(title, index) in data.halfTitleList" :key="index">
-							<span>{{ title }}</span>
-						</div>
-					</div>
-					<div class="store-up">
-					</div>
-					<div class="table-text table-list" v-for="(halfDatalist, halfScoreIndex) in data.halfScoreList"
-						:key="halfScoreIndex">
-						<div class="table-text-l" v-if="halfDatalist.name">
-							<span>{{ halfDatalist.goalsScored }}</span>
-							<span v-if="halfDatalist.name !== '和'">{{ halfDatalist.name }}</span>
-						</div>
-						<div class="store-up" v-if="!halfDatalist.name">
-						</div>
-						<div class="table-text-r" v-for="(num, numIndex) in halfDatalist.nums" :key="numIndex">
-							<div v-if="num.type == 1" @click="handleModal1(item, data, halfDatalist, num, numIndex)"
-								:class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
-								class="item-background">
-								<span>{{ num.text }}</span>
-								<span>{{ num.num }}</span>
-							</div>
-							<div class="lock" v-if="num.type == 2">
-								<img src="@/assets/images/stadiums/lock.png" alt="">
-							</div>
-						</div>
-					</div>
 					<div style="text-align: center; color:red; font-weight: bold; margin-bottom: 10px;">总入球</div>
-					<div class="table-text goal-table-list" v-for="(goalData, goalDataIndex) in data.totalGoalList"
-						:key="goalDataIndex" style="padding-bottom: 10px;">
+					<div class="table-text goal-table-list text-center"
+						v-for="(goalData, goalDataIndex) in data.totalGoalList" :key="goalDataIndex"
+						style="padding-bottom: 10px; justify-content: center;">
 						<div class="table-text-r" v-for="(num, numIndex) in goalData.nums" :key="numIndex">
 							<div v-if="num.type == 1" @click="handleModal2(item, data, goalData, num, numIndex)"
 								:class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
 								class="item-background">
 								<span>{{ num.text }}</span>
-								<span>{{ num.num }}</span>
+								<span class="font-bold text-[14px]">{{ num.num }}</span>
 							</div>
 							<div class="lock" v-if="num.type == 2">
 								<img src="@/assets/images/stadiums/lock.png" alt="">
@@ -173,13 +151,13 @@
 					</div>
 					<div style="text-align: center; color:red; font-weight: bold; margin-bottom: 10px;">半场 / 全场</div>
 					<div class="table-text full-table-list" v-for="(fullData, fullDataIndex) in data.fullTimeList"
-						:key="fullDataIndex" style="padding-bottom: 10px;">
+						:key="fullDataIndex" style="padding-bottom: 10px; justify-content: center;">
 						<div class="table-text-r" v-for="(num, numIndex) in fullData.nums" :key="numIndex">
 							<div v-if="num.type == 1" @click="handleModal3(item, data, fullData, num, numIndex)"
 								:class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
 								class="item-background">
 								<span>{{ num.text }}</span>
-								<span>{{ num.num }}</span>
+								<span class="font-bold text-[14px]">{{ num.num }}</span>
 							</div>
 							<div class="lock" v-if="num.type == 2">
 								<img src="@/assets/images/stadiums/lock.png" alt="">
@@ -1054,7 +1032,7 @@ export default defineComponent({
 					if (item["HDP_OU"] === 1) {
 
 						this.fullCourt1 = {
-							title: '让球',
+							title: ['让球', '得分大小'],
 							data: [
 								{
 									name: item["MB_Team"],
@@ -1094,6 +1072,42 @@ export default defineComponent({
 											colorChangeDOwn: false,
 											text: item["M_LetB_3"] !== "" && item["M_LetB_3"] !== undefined ? handicap_sign_m + item["M_LetB_3"] : "",
 											num: item["MB_LetB_Rate_3"] == 0 || item["MB_LetB_Rate_3"] == undefined ? 0 : (Number(item["MB_LetB_Rate_3"])).toFixed(2),
+										},
+										{
+											lineType: 3,
+											mType: "OUH",
+											bettingType: "H",
+											colorChangeUp: false,
+											colorChangeDOwn: false,
+											text: item["MB_Dime"] == "" || item["MB_Dime"] == undefined ? "" : "大 " + item["MB_Dime"].split("O")[1],
+											num: item["MB_Dime_Rate"] == 0 || item["MB_Dime_Rate"] == undefined ? 0 : (Number(item['MB_Dime_Rate'])).toFixed(2)
+										},
+										{
+											lineType: 59,
+											mType: "OUH",
+											bettingType: "H",
+											colorChangeUp: false,
+											colorChangeDOwn: false,
+											text: item["MB_Dime_1"] == "" || item["MB_Dime_1"] == undefined ? "" : "大 " + item["MB_Dime_1"].split("O")[1],
+											num: item["MB_Dime_Rate_1"] == 0 || item["MB_Dime_Rate_1"] == undefined ? 0 : (Number(item['MB_Dime_Rate_1'])).toFixed(2)
+										},
+										{
+											lineType: 60,
+											mType: "OUH",
+											bettingType: "H",
+											colorChangeUp: false,
+											colorChangeDOwn: false,
+											text: item["MB_Dime_2"] == "" || item["MB_Dime_2"] == undefined ? "" : "大 " + item["MB_Dime_2"].split("O")[1],
+											num: item["MB_Dime_Rate_2"] == 0 || item["MB_Dime_Rate_2"] == undefined ? 0 : (Number(item['MB_Dime_Rate_2'])).toFixed(2)
+										},
+										{
+											lineType: 61,
+											mType: "OUH",
+											bettingType: "H",
+											colorChangeUp: false,
+											colorChangeDOwn: false,
+											text: item["MB_Dime_3"] == "" || item["MB_Dime_3"] == undefined ? "" : "大 " + item["MB_Dime_3"].split("O")[1],
+											num: item["MB_Dime_Rate_3"] == 0 || item["MB_Dime_Rate_3"] == undefined ? 0 : (Number(item['MB_Dime_Rate_3'])).toFixed(2)
 										},
 									]
 								},
@@ -1135,6 +1149,42 @@ export default defineComponent({
 											colorChangeDOwn: false,
 											text: item["M_LetB_3"] !== "" && item["M_LetB_3"] !== undefined ? handicap_sign_t + item["M_LetB_3"] : "",
 											num: item["TG_LetB_Rate_3"] == 0 || item["TG_LetB_Rate_3"] == undefined ? 0 : (Number(item["TG_LetB_Rate_3"])).toFixed(2),
+										},
+										{
+											lineType: 3,
+											mType: "OUC",
+											bettingType: "C",
+											colorChangeUp: false,
+											colorChangeDOwn: false,
+											text: item["TG_Dime"] == "" || item["TG_Dime"] == undefined ? "" : "小 " + item["TG_Dime"].split("U")[1],
+											num: item["TG_Dime_Rate"] == 0 || item["TG_Dime_Rate"] == undefined ? 0 : (Number(item['TG_Dime_Rate'])).toFixed(2)
+										},
+										{
+											lineType: 59,
+											mType: "OUC",
+											bettingType: "C",
+											colorChangeUp: false,
+											colorChangeDOwn: false,
+											text: item["TG_Dime_1"] == "" || item["TG_Dime_1"] == undefined ? "" : "小 " + item["TG_Dime_1"].split("U")[1],
+											num: item["TG_Dime_Rate_1"] == 0 || item["TG_Dime_Rate_1"] == undefined ? 0 : (Number(item['TG_Dime_Rate_1'])).toFixed(2)
+										},
+										{
+											lineType: 60,
+											mType: "OUC",
+											bettingType: "C",
+											colorChangeUp: false,
+											colorChangeDOwn: false,
+											text: item["TG_Dime_2"] == "" || item["TG_Dime_2"] == undefined ? "" : "小 " + item["TG_Dime_2"].split("U")[1],
+											num: item["TG_Dime_Rate_2"] == 0 || item["TG_Dime_Rate_2"] == undefined ? 0 : (Number(item['TG_Dime_Rate_2'])).toFixed(2)
+										},
+										{
+											lineType: 61,
+											mType: "OUC",
+											bettingType: "C",
+											colorChangeUp: false,
+											colorChangeDOwn: false,
+											text: item["TG_Dime_3"] == "" || item["TG_Dime_3"] == undefined ? "" : "小 " + item["TG_Dime_3"].split("U")[1],
+											num: item["TG_Dime_Rate_3"] == 0 || item["TG_Dime_Rate_3"] == undefined ? 0 : (Number(item['TG_Dime_Rate_3'])).toFixed(2)
 										},
 									]
 								}
@@ -1334,7 +1384,7 @@ export default defineComponent({
 						hdpBtnShow: item["HDP_OU"] == 1 ? true : false,
 						cornerBtnShow: item["CORNER"] == 1 ? true : false,
 						moreShow: false,
-						titleList: ["今日 " + item["M_Time"], '让球', '得分大小', '独赢'],
+						titleList: ["今日 " + item["M_Time"], '让球', '得分大小', '独赢', '单双', '半场让球', '半场大小', '半场独赢'],
 						halfTitleList: ["今日 " + item["M_Time"], '单双', '半场让球', '半场大小', '半场独赢'],
 						totalGoalTitle: "总入球",
 						fullTimeTitle: "半场 / 全场",
@@ -1372,65 +1422,6 @@ export default defineComponent({
 										text: "",
 										num: (Number(item["MB_Win_Rate"])).toFixed(2)
 									},
-								]
-							},
-							{
-								name: item["TG_Team"],
-								nums: [
-									{
-										lineType: 2,
-										mType: "RC",
-										bettingType: "C",
-										type: item["TG_LetB_Rate"] == 0 ? 2 : 1,
-										colorChangeUp: false,
-										colorChangeDOwn: false,
-										text: item["M_LetB"] !== "" ? handicap_sign_t + item["M_LetB"] : "",
-										num: item["TG_LetB_Rate"] == 0 ? 0 : (Number(item["TG_LetB_Rate"])).toFixed(2)
-									},
-									{
-										lineType: 3,
-										mType: "OUC",
-										bettingType: "C",
-										type: item["TG_Dime_Rate"] == 0 ? 2 : 1,
-										colorChangeUp: false,
-										colorChangeDOwn: false,
-										text: item["TG_Dime"] == "" ? "" : "小 " + item["TG_Dime"].split("U")[1],
-										num: item["TG_Dime_Rate"] == 0 ? 0 : (Number(item['TG_Dime_Rate'])).toFixed(2)
-									},
-									{
-										lineType: 1,
-										mType: "MC",
-										bettingType: "C",
-										type: item["TG_Win_Rate"] == 0 ? 2 : 1,
-										colorChangeUp: false,
-										colorChangeDOwn: false,
-										text: "",
-										num: Number(item["TG_Win_Rate"]).toFixed(2)
-									},
-								]
-							},
-							{
-								Collection: false,
-								nums: [
-									{},
-									{},
-									{
-										lineType: 1,
-										mType: "MN",
-										bettingType: "N",
-										type: item["M_Flat_Rate"] == 0 ? 2 : 1,
-										colorChangeUp: false,
-										colorChangeDOwn: false,
-										text: '和',
-										num: Number(item['M_Flat_Rate']).toFixed(2)
-									},
-								]
-							}
-						],
-						halfScoreList: [
-							{
-								name: item["MB_Team"],
-								nums: [
 									{
 										lineType: 5,
 										r_type: "ODD",
@@ -1475,9 +1466,38 @@ export default defineComponent({
 								]
 							},
 							{
-								goalsScored: item["TG_Ball"],
 								name: item["TG_Team"],
 								nums: [
+									{
+										lineType: 2,
+										mType: "RC",
+										bettingType: "C",
+										type: item["TG_LetB_Rate"] == 0 ? 2 : 1,
+										colorChangeUp: false,
+										colorChangeDOwn: false,
+										text: item["M_LetB"] !== "" ? handicap_sign_t + item["M_LetB"] : "",
+										num: item["TG_LetB_Rate"] == 0 ? 0 : (Number(item["TG_LetB_Rate"])).toFixed(2)
+									},
+									{
+										lineType: 3,
+										mType: "OUC",
+										bettingType: "C",
+										type: item["TG_Dime_Rate"] == 0 ? 2 : 1,
+										colorChangeUp: false,
+										colorChangeDOwn: false,
+										text: item["TG_Dime"] == "" ? "" : "小 " + item["TG_Dime"].split("U")[1],
+										num: item["TG_Dime_Rate"] == 0 ? 0 : (Number(item['TG_Dime_Rate'])).toFixed(2)
+									},
+									{
+										lineType: 1,
+										mType: "MC",
+										bettingType: "C",
+										type: item["TG_Win_Rate"] == 0 ? 2 : 1,
+										colorChangeUp: false,
+										colorChangeDOwn: false,
+										text: "",
+										num: Number(item["TG_Win_Rate"]).toFixed(2)
+									},
 									{
 										lineType: 5,
 										mType: "",
@@ -1524,6 +1544,18 @@ export default defineComponent({
 							{
 								Collection: false,
 								nums: [
+									{},
+									{},
+									{
+										lineType: 1,
+										mType: "MN",
+										bettingType: "N",
+										type: item["M_Flat_Rate"] == 0 ? 2 : 1,
+										colorChangeUp: false,
+										colorChangeDOwn: false,
+										text: '和',
+										num: Number(item['M_Flat_Rate']).toFixed(2)
+									},
 									{},
 									{},
 									{},
@@ -1987,7 +2019,7 @@ export default defineComponent({
 }
 
 .van-loading__spinner {
-    color: white
+	color: white
 }
 
 .summary-loading-position {
@@ -2217,7 +2249,7 @@ export default defineComponent({
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-                width: 100px;
+				width: 100px;
 				height: 42px;
 				border: 1px solid #CECECE;
 				border-radius: 5px;
@@ -2301,13 +2333,19 @@ export default defineComponent({
 
 	.summary-center {
 		margin-bottom: 2px;
-		border-right: 1px solid #E3E3E3;
 
 		.summary-title {
-			background-color: #D6E0E6;
+			background-color: #ededed;
 			font-size: 12px;
-			line-height: 15px;
+			line-height: 20px;
 			text-align: center;
+			display: flex;
+			justify-content: space-around;
+		}
+
+		.summary-item div:hover {
+			background-color: orange;
+
 		}
 
 		.summary-item {
@@ -2322,7 +2360,8 @@ export default defineComponent({
 			}
 
 			.summary-item-l {
-				width: 100px;
+				margin-left: 10px;
+				width: 300px;
 				height: 33px;
 
 				span:first-child {
@@ -2331,21 +2370,28 @@ export default defineComponent({
 				}
 			}
 
+			.summary-item-l:hover {
+				background: none;
+			}
+
 			.summary-item-r {
 				flex-direction: column;
 				justify-content: center;
-				width: 61px;
-				height: 33px;
-				border-left: 1px solid #E3E3E3;
+				width: 140px;
+				height: 42px;
+				border: 1px solid #E3E3E3;
 				border-bottom: 1px solid #E3E3E3;
+				cursor: pointer;
 
 				span:last-child {
 					color: #E80909;
+					font-weight: bold;
+					font-size: 14px;
 				}
 			}
 
 			.summary-bottom {
-				width: 86px;
+				width: 200px;
 			}
 		}
 	}

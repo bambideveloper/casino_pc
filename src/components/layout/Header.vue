@@ -11,6 +11,177 @@ const modules = [Pagination];
 const menuList = ref([
   {
     id: 1,
+    name: "",
+    image: "/src/assets/images/logo.png",
+    type: "logo",
+    href: "/",
+    children: [],
+  },
+  {
+    id: 2,
+    name: "首页",
+    type: "dashboard",
+    href: "/",
+    children: [],
+  },
+  {
+    id: 3,
+    name: "皇冠体育",
+    href: "/hall/sport",
+    type: "sports",
+    children: [
+      {
+        name: "足球",
+        btnName: "进入平台",
+        href: "/hall/sport/ft",
+        image: new URL("@/assets/images/sport/ball_16.png", import.meta.url),
+      },
+      {
+        name: "篮球",
+        btnName: "进入平台",
+        href: "/hall/sport/bk",
+        image: new URL("@/assets/images/sport/ball_07.png", import.meta.url),
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: "彩票游戏",
+    href: "/hall/lottery",
+    type: "lottery",
+    children: [
+      {
+        name: "澳门六合彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1661690557403.png", import.meta.url),
+      },
+      {
+        name: "香港六合彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657716617488.png", import.meta.url),
+      },
+      {
+        name: "重庆时时彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657714819579.png", import.meta.url),
+      },
+      {
+        name: "河内五分彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657714849313.png", import.meta.url),
+      },
+      {
+        name: "澳洲幸运5",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657714889990.png", import.meta.url),
+      },
+      {
+        name: "澳洲幸运10",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657714931262.png", import.meta.url),
+      },
+      {
+        name: "幸运飞艇",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657714996653.png", import.meta.url),
+      },
+      {
+        name: "北京PK拾",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715017976.png", import.meta.url),
+      },
+      {
+        name: "天津时时彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715051568.png", import.meta.url),
+      },
+      {
+        name: "新疆时时彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715081433.png", import.meta.url),
+      },
+      {
+        name: "重庆十分彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715118483.png", import.meta.url),
+      },
+      {
+        name: "广东十分彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715213155.png", import.meta.url),
+      },
+      {
+        name: "广西十分彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715266155.png", import.meta.url),
+      },
+      {
+        name: "天津十分彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715295309.png", import.meta.url),
+      },
+      {
+        name: "上海时时乐",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715460185.png", import.meta.url),
+      },
+      {
+        name: "广东11选5",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657715499820.png", import.meta.url),
+      },
+      {
+        name: "福彩3D",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657716481773.png", import.meta.url),
+      },
+      {
+        name: "排列3",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1657716517091.png", import.meta.url),
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: "真人游戏",
+    href: "/hall/video",
+    type: "video",
+    children: [
+      {
+        name: "新葡京OG东方馆",
+        btnName: "开始游戏",
+        redirect: 'OG_GAME',
+        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
+      },
+      {
+        name: "AG国际厅",
+        btnName: "开始游戏",
+        redirect: 'AG_GAME_2',
+        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
+      },
+      {
+        name: "AG旗舰厅",
+        btnName: "开始游戏",
+        redirect: 'AG_GAME_1',
+        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
+      },
+      {
+        name: "AGVIP厅",
+        btnName: "开始游戏",
+        redirect: 'AG_GAME_4',
+        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
+      },
+      {
+        name: "BBIN馆",
+        btnName: "开始游戏",
+        redirect: 'BBIN_GAME_1',
+        image: new URL("@/assets/images/LG_BBINDZ.8791659c.png", import.meta.url),
+      },
+    ],
+  },
+  {
+    id: 6,
     name: "棋牌游戏",
     href: "/hall/chess/1",
     type: "menu",
@@ -21,64 +192,42 @@ const menuList = ref([
         href: "/hall/chess/1",
         image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
       },
+    ],
+  },
+  {
+    id: 7,
+    name: "电子游戏",
+    href: "/hall/electronic/1",
+    type: "menu",
+    children: [
       {
-        name: "乐游棋牌",
+        name: "AG电子",
         btnName: "进入平台",
-        href: "/hall/chess/2",
-        image: new URL("@/assets/images/LG_SSOCHESS.png", import.meta.url),
+        href: "/hall/electronic/1",
+        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
       },
       {
-        name: "VG棋牌",
+        name: "BBIN电子",
         btnName: "进入平台",
-        href: "/hall/chess/3",
-        image: new URL("@/assets/images/LG_VG.png", import.meta.url),
+        href: "/hall/electronic/2",
+        image: new URL("@/assets/images/LG_BBINDZ.8791659c.png", import.meta.url),
       },
       {
-        name: "美天棋牌",
+        name: "PT电子",
         btnName: "进入平台",
-        href: "/hall/chess/4",
-        image: new URL("@/assets/images/LG_MTQP.png", import.meta.url),
+        href: "/hall/electronic/3",
+        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
       },
       {
-        name: "FG棋牌",
+        name: "MG电子",
         btnName: "进入平台",
-        href: "/hall/chess/5",
-        image: new URL("@/assets/images/LG_MTQP.png", import.meta.url),
-      },
-      {
-        name: "双赢棋牌",
-        btnName: "进入平台",
-        href: "/hall/chess/6",
-        image: new URL("@/assets/images/LG_SGWIN.png", import.meta.url),
-      },
-      {
-        name: "盛世棋牌",
-        btnName: "进入平台",
-        href: "/hall/chess/7",
-        image: new URL("@/assets/images/LG_SS.png", import.meta.url),
-      },
-      {
-        name: "美博棋牌",
-        btnName: "进入平台",
-        href: "/hall/chess/8",
-        image: new URL("@/assets/images/LG_MB.png", import.meta.url),
-      },
-      {
-        name: "新世界棋牌",
-        btnName: "进入平台",
-        href: "/hall/chess/9",
-        image: new URL("@/assets/images/LG_NWG.png", import.meta.url),
-      },
-      {
-        name: "百胜棋牌",
-        btnName: "进入平台",
-        href: "/hall/chess/10",
-        image: new URL("@/assets/images/LG_BS.png", import.meta.url),
+        href: "/hall/electronic/4",
+        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
       },
     ],
   },
   {
-    id: 2,
+    id: 8,
     name: "捕鱼游戏",
     href: "/hall/fish/0",
     type: "menu",
@@ -441,228 +590,18 @@ const menuList = ref([
     ],
   },
   {
-    id: 3,
-    name: "电子游艺",
-    href: "/hall/electronic/1",
-    type: "menu",
-    children: [
-      {
-        name: "AG电子",
-        btnName: "进入平台",
-        href: "/hall/electronic/1",
-        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
-      },
-      {
-        name: "BBIN电子",
-        btnName: "进入平台",
-        href: "/hall/electronic/2",
-        image: new URL("@/assets/images/LG_BBINDZ.8791659c.png", import.meta.url),
-      },
-      {
-        name: "PT电子",
-        btnName: "进入平台",
-        href: "/hall/electronic/3",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
-      },
-      {
-        name: "MG电子",
-        btnName: "进入平台",
-        href: "/hall/electronic/4",
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "视讯游戏",
-    href: "/hall/video",
-    type: "video",
-    children: [
-      {
-        name: "新葡京OG东方馆",
-        btnName: "开始游戏",
-        redirect: 'OG_GAME',
-        image: new URL("@/assets/images/LG_KYQP.png", import.meta.url),
-      },
-      {
-        name: "AG国际厅",
-        btnName: "开始游戏",
-        redirect: 'AG_GAME_2',
-        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
-      },
-      {
-        name: "AG旗舰厅",
-        btnName: "开始游戏",
-        redirect: 'AG_GAME_1',
-        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
-      },
-      {
-        name: "AGVIP厅",
-        btnName: "开始游戏",
-        redirect: 'AG_GAME_4',
-        image: new URL("@/assets/images/LG_AGDZ.40cc9c14.png", import.meta.url),
-      },
-      {
-        name: "BBIN馆",
-        btnName: "开始游戏",
-        redirect: 'BBIN_GAME_1',
-        image: new URL("@/assets/images/LG_BBINDZ.8791659c.png", import.meta.url),
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "彩票游戏",
-    href: "/hall/lottery",
-    type: "lottery",
-    children: [
-      {
-        name: "澳门六合彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1661690557403.png", import.meta.url),
-      },
-      {
-        name: "香港六合彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657716617488.png", import.meta.url),
-      },
-      {
-        name: "重庆时时彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657714819579.png", import.meta.url),
-      },
-      {
-        name: "河内五分彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657714849313.png", import.meta.url),
-      },
-      {
-        name: "澳洲幸运5",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657714889990.png", import.meta.url),
-      },
-      {
-        name: "澳洲幸运10",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657714931262.png", import.meta.url),
-      },
-      {
-        name: "幸运飞艇",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657714996653.png", import.meta.url),
-      },
-      {
-        name: "北京PK拾",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657715017976.png", import.meta.url),
-      },
-      {
-        name: "天津时时彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657715051568.png", import.meta.url),
-      },
-      {
-        name: "新疆时时彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657715081433.png", import.meta.url),
-      },
-      {
-        name: "重庆十分彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657715118483.png", import.meta.url),
-      },
-      {
-        name: "广东十分彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657715213155.png", import.meta.url),
-      },
-      {
-        name: "广西十分彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657715266155.png", import.meta.url),
-      },
-      {
-        name: "天津十分彩",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657715295309.png", import.meta.url),
-      },
-      {
-        name: "上海时时乐",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657715460185.png", import.meta.url),
-      },
-      {
-        name: "广东11选5",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657715499820.png", import.meta.url),
-      },
-      {
-        name: "福彩3D",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657716481773.png", import.meta.url),
-      },
-      {
-        name: "排列3",
-        btnName: "开始游戏",
-        image: new URL("@/assets/images/lottery/1657716517091.png", import.meta.url),
-      },
-    ],
-  },
-  {
-    id: 6,
-    name: "",
-    image: "/src/assets/images/logo.png",
-    type: "logo",
-    href: "/",
-    children: [],
-  },
-  {
-    id: 7,
-    name: "体育游戏",
-    href: "/hall/sport",
-    type: "sports",
-    children: [
-      {
-        name: "足球",
-        btnName: "进入平台",
-        href: "/hall/sport/ft",
-        image: new URL("@/assets/images/sport/ball_16.png", import.meta.url),
-      },
-      {
-        name: "篮球",
-        btnName: "进入平台",
-        href: "/hall/sport/bk",
-        image: new URL("@/assets/images/sport/ball_07.png", import.meta.url),
-      },
-    ],
-  },
-  {
-    id: 8,
-    name: "电竞游戏",
-    href: "/hall/e-competition",
-    type: "menu",
-    children: [],
-  },
-  {
     id: 9,
-    name: "VIP特权",
-    href: "",
-    type: "menu",
-    children: [],
-  },
-  {
-    id: 10,
-    name: "推广赚钱",
-    href: "",
-    type: "menu",
-    children: [],
-  },
-  {
-    id: 11,
     name: "优惠活动",
     href: "/activity/1",
     type: "activity",
     children: [{}],
+  },
+  {
+    id: 10,
+    name: "在线客服",
+    href: "",
+    type: "online_service",
+    children: [],
   },
 ]);
 </script>
@@ -838,19 +777,28 @@ const menuList = ref([
           'px-[10px] pt-[18px] text-center text-[15px] relative cursor-pointer': true,
           ' animate-bounceIn-2 visible': showBackToTop,
         }">
-          <div class="w-[60px] h-[60px] top-btn"></div>
+          <div class="w-[40px] h-[40px] top-btn"></div>
         </li>
         <li class="px-[10px] pt-[18px] text-center text-[15px] relative animate-bounceIn-2 cursor-pointer">
-          <div class="w-[60px] h-[60px] server-btn"></div>
+          <div class="w-[40px] h-[40px] server-btn"></div>
+        </li>
+        <li class="px-[10px] pt-[18px] text-center text-[15px] relative animate-bounceIn-2 cursor-pointer">
+          <div class="w-[40px] h-[40px] cash-btn"></div>
         </li>
         <li class="px-[10px] pt-[18px] text-center text-[15px] relative animate-bounceIn-2 cursor-pointer">
           <router-link to="/download">
-            <div class="app-download-btn w-[60px] h-[60px]"></div>
+            <div class="app-download-btn w-[40px] h-[40px]"></div>
           </router-link>
         </li>
       </ul>
     </div>
   </div>
+  <el-dialog v-model="loginSuccessDialogVisible" title="登录成功公告" width="60%" align-center>
+    <img src="@/assets/images/pc_3.gif" />
+  </el-dialog>
+  <el-dialog v-model="alertDialogVisible" title="平台公告" width="60%" align-center>
+    <img src="@/assets/images/pc_1.gif" />
+  </el-dialog>
 </template>
 
 <script>
@@ -879,6 +827,8 @@ export default {
       showBackToTop: false,
       username: "",
       password: "",
+      alertDialogVisible: false,
+      loginSuccessDialogVisible: false
     };
   },
   async mounted() {
@@ -1044,6 +994,9 @@ export default {
       });
       const { signIn } = useAuthStore();
       await signIn(this.username, this.password);
+      if (this.loginSuccess) {
+        this.loginSuccessDialogVisible = true;
+      }
       this.username = "";
       this.password = "";
       loading.close();
@@ -1069,6 +1022,10 @@ export default {
     },
   },
   computed: {
+    loginSuccess: function () {
+      const { getSuccess } = useAuthStore();
+      return getSuccess
+    },
     user: function () {
       const { getUser } = useAuthStore();
       return getUser;
@@ -1118,6 +1075,13 @@ export default {
       return getErrMessage.value
     },
   },
+  watch: {
+    loginSuccessDialogVisible: function(value) {
+      if (!value) {
+        this.alertDialogVisible = true;
+      }
+    }
+  }
 };
 </script>
 
@@ -1132,7 +1096,7 @@ export default {
 
 .top-btn {
   display: none;
-  background: url("@/assets/images/FW_totop.png");
+  background: url("@/assets/images/service/一键置顶.png");
   background-size: cover;
 }
 
@@ -1145,7 +1109,7 @@ export default {
 }
 
 .server-btn {
-  background: url("@/assets/images/FW_server.png");
+  background: url("@/assets/images/service/在线客服.png");
   background-size: cover;
 }
 
@@ -1153,8 +1117,17 @@ export default {
   animation: bounceInDown 0.5s linear both;
 }
 
+.cash-btn {
+  background: url("@/assets/images/service/代理合作.png");
+  background-size: cover;
+}
+
+.cash-btn:hover {
+  animation: bounceInDown 0.5s linear both;
+}
+
 .app-download-btn {
-  background: url("@/assets/images/FW_download.png");
+  background: url("@/assets/images/service/下载APP.png");
   background-size: cover;
 }
 

@@ -15,6 +15,10 @@
                 <FTTodayLeague v-if="activeName == '今日' && leagueShow" @showTodayMain="showTodayMain" />
                 <FTTodayMain v-if="activeName == '今日' && mainSwitch == '主要玩法' && !leagueShow" :todayGids="todayGids" :field="field"/>
                 <FTTodayScore v-if="activeName == '今日' && mainSwitch == '波胆' && !leagueShow" :todayGids="todayGids" :field="field"/>
+                <!-----------------  early football betting ------------------------>
+                <FTEarlyLeague v-if="activeName == '早盘' && leagueShow" @showEarlyMain="showEarlyMain" />
+                <FTEarlyMain v-if="activeName == '早盘' && mainSwitch == '主要玩法' && !leagueShow" :earlyGids="earlyGids" :field="field"/>
+                <FTEarlyScore v-if="activeName == '早盘' && mainSwitch == '波胆' && !leagueShow" :earlyGids="earlyGids" :field="field"/>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -26,6 +30,9 @@ import FTInplayScore from './components/FT_Inplay_Score.vue'
 import FTTodayLeague from './components/FT_Today_League.vue'
 import FTTodayMain from './components/FT_Today_Main.vue';
 import FTTodayScore from './components/FT_Today_Score.vue';
+import FTEarlyLeague from './components/FT_Early_League.vue'
+import FTEarlyMain from './components/FT_Early_Main.vue';
+import FTEarlyScore from './components/FT_Early_Score.vue';
 
 const activeName = ref('滚球中')
 const mainSwitch = ref('主要玩法')

@@ -53,6 +53,7 @@ export const useAuthStore = defineStore({
     },
     async signIn(login_name: string, password: string) {
       try {
+        this.setSuccess(false);
         let url = config.api.SIGN_IN;
         let data = {
           LoginName: login_name,
@@ -61,6 +62,7 @@ export const useAuthStore = defineStore({
         const response = await axios.post(url, data);
         console.log("reponese: ", response.data.data)
         if (response.status === 200) {
+          this.setSuccess(true);
           this.setToken(response.data.data.access_token as string);
           localStorage.setItem("token", (response.data.data.access_token));
           this.setUser(response.data.data as any)
