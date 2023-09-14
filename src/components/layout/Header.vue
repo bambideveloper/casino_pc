@@ -665,7 +665,7 @@ const menuList = ref([
         <li :class="menu.type === 'menu' ? 'w-[84px] h-[85px] menu-li flex' : ''" v-for="menu in menuList" :key="menu"
           @mouseenter="mouseEnter(menu.id)">
           <router-link to="/" v-if="menu.type === 'logo'">
-            <img src="@/assets/images/logo.png" alt="logo" />
+            <img src="@/assets/images/logo.png" alt="logo" width="190"/>
           </router-link>
           <router-link :to="menu.href"
             class="flex items-center w-full text-base cursor-pointer text-[#d7d7d7] hover:text-[#fbe59c]" v-else>
