@@ -1,25 +1,25 @@
 <template>
-	<div>
-		<van-loading color="#1989fa" class="loading-position" v-if="loading" size="40" />
+	<div :style="{ height: loading || changedFTDataList.length === 0 ? '90vh' : 'unset' }">
+		<van-loading color="#1989fa" class="loading-position" v-if="loading" size="60" />
 		<div style="text-align: center;" v-if="changedFTDataList.length === 0 && !loading">没有数据</div>
 		<div class="game-list" v-for="(item, index) in changedFTDataList" :key="index">
 			<div class="divide-background"></div>
 			<div class="center-title" @click="showDetail(item['lid'])">
-				<span>{{ item.name }}</span>
 				<img :src="item.icon" alt="" v-if="item.icon !== ''">
+				<span class="ml-[10px] font-[600]">{{ item.name }}</span>
 			</div>
 			<div class="center-item" :class="{ detail_show: item['show'], detail_hide: !item['show'] }"
 				v-for="(data, index) in item.gameList" :key="index">
 				<div class="table-title table-list">
-					<div v-for="(title, index) in data.titleList" :key="index">
-						<span>{{ title }}</span>
+					<div v-for="(title, index) in data.titleList" :key="index" style="margin-right: 8px;">
+						<span :style="{ marginRight: index == 0 ? 'auto' : 'unset', fontSize: '14px' }"
+							class="font-bold mr-[5px]">{{ title }}</span>
 					</div>
 				</div>
 				<div class="table-text table-list" v-for="(datalist, scoreIndex) in data.scoreList" :key="scoreIndex">
 					<div class="table-text-l" v-if="datalist.name">
-						<!-- <span>{{ datalist.goalsScored }}</span> -->
-						<span>0</span>
-						<span>{{ datalist.name }}</span>
+						<span class="font-bold text-[14px]">0</span>
+						<span class="font-bold text-[14px]">{{ datalist.name }}</span>
 					</div>
 					<div class="store-up" v-if="!datalist.name">
 						<img v-if="!datalist.Collection" src="@/assets/images/stadiums/store_up.png" alt=""
@@ -32,7 +32,7 @@
 							:class="{ item_background_up: num.colorChangeUp, item_background_down: num.colorChangeDown }"
 							class="item-background">
 							<span>{{ num.text }}</span>
-							<span>{{ num.num }}</span>
+							<span class="font-bold text-[14px]">{{ num.num }}</span>
 						</div>
 						<div class="lock" v-if="num.type == 2">
 							<img src="@/assets/images/stadiums/lock.png" alt="">
@@ -1112,11 +1112,9 @@ export default defineComponent({
 						// cornerBtnShow: item["CORNER"] == 1 ? true : false,
 						cornerBtnShow: false,
 						// hdpBtnShow: false,
-						titleList: [item["M_Start"], '让球', '得分大小', '独赢'],
-						halfTitleList: [item["M_Start"], '单双', '半场让球', '半场大小', '半场独赢'],
+						titleList: [item["M_Start"], '让球', '得分大小', '独赢', '单双', '半场让球', '半场大小', '半场独赢'],
 						scoreList: [
 							{
-								// goalsScored: item["MB_Ball"],
 								name: item["MB_Team"],
 								nums: [
 									{
@@ -1149,87 +1147,6 @@ export default defineComponent({
 										text: "",
 										num: (Number(item["MB_Win_Rate"])).toFixed(2)
 									},
-									// {
-									// 	type: item["MB_Win_Rate_RB_H"] == 0 ? 2 : 1,
-									// 	colorChangeUp: false,
-									// 	colorChangeDOwn: false,
-									// 	text: '第一个',
-									// 	num: Number(item['MB_Win_Rate_RB_H']).toFixed(2)
-									// }
-								]
-							},
-							{
-								// goalsScored: item["TG_Ball"],
-								name: item["TG_Team"],
-								nums: [
-									{
-										lineType: 2,
-										mType: "RC",
-										bettingType: "C",
-										type: item["TG_LetB_Rate"] == 0 ? 2 : 1,
-										colorChangeUp: false,
-										colorChangeDOwn: false,
-										text: (Number(item["MB_LetB_Rate"])) < (Number(item["TG_LetB_Rate"])) ? handicap_sign_t + item["M_LetB"] : "+" + item["M_LetB"],
-										num: item["TG_LetB_Rate"] == 0 ? 0 : (Number(item["TG_LetB_Rate"])).toFixed(2)
-									},
-									{
-										lineType: 3,
-										mType: "OUC",
-										bettingType: "C",
-										type: item["TG_Dime_Rate"] == 0 ? 2 : 1,
-										colorChangeUp: false,
-										colorChangeDOwn: false,
-										text: item["TG_Dime"] == "" || item["TG_Dime"] == undefined ? "" : "小 " + item["TG_Dime"].split("U")[1],
-										num: item["TG_Dime_Rate"] == 0 ? 0 : (Number(item['TG_Dime_Rate'])).toFixed(2)
-									},
-									{
-										lineType: 1,
-										mType: "MC",
-										bettingType: "C",
-										type: item["TG_Win_Rate"] == 0 ? 2 : 1,
-										colorChangeUp: false,
-										colorChangeDOwn: false,
-										text: "",
-										num: Number(item["TG_Win_Rate"]).toFixed(2)
-									},
-									// {
-									// 	type: item["TG_Win_Rate_RB_H"] == 0 ? 2 : 1,
-									// 	colorChangeUp: false,
-									// 	colorChangeDOwn: false,
-									// 	text: '第一个',
-									// 	num: Number(item['TG_Win_Rate_RB_H']).toFixed(2)
-									// }
-								]
-							},
-							{
-								Collection: false,
-								nums: [
-									{},
-									{},
-									{
-										lineType: 1,
-										mType: "MN",
-										bettingType: "N",
-										type: item["M_Flat_Rate"] == 0 ? 2 : 1,
-										colorChangeUp: false,
-										colorChangeDOwn: false,
-										text: '和',
-										num: Number(item['M_Flat_Rate']).toFixed(2)
-									},
-									// {
-									// 	type: item["M_Flat_Rate_RB_H"] == 0 ? 2 : 1,
-									// 	colorChangeUp: false,
-									// 	colorChangeDOwn: false,
-									// 	text: '无',
-									// 	num: Number(item['M_Flat_Rate_RB_H']).toFixed(2)
-									// }
-								]
-							}
-						],
-						halfScoreList: [
-							{
-								name: item["MB_Team"],
-								nums: [
 									{
 										lineType: 5,
 										r_type: "ODD",
@@ -1274,9 +1191,38 @@ export default defineComponent({
 								]
 							},
 							{
-								goalsScored: item["TG_Ball"],
 								name: item["TG_Team"],
 								nums: [
+									{
+										lineType: 2,
+										mType: "RC",
+										bettingType: "C",
+										type: item["TG_LetB_Rate"] == 0 ? 2 : 1,
+										colorChangeUp: false,
+										colorChangeDOwn: false,
+										text: (Number(item["MB_LetB_Rate"])) < (Number(item["TG_LetB_Rate"])) ? handicap_sign_t + item["M_LetB"] : "+" + item["M_LetB"],
+										num: item["TG_LetB_Rate"] == 0 ? 0 : (Number(item["TG_LetB_Rate"])).toFixed(2)
+									},
+									{
+										lineType: 3,
+										mType: "OUC",
+										bettingType: "C",
+										type: item["TG_Dime_Rate"] == 0 ? 2 : 1,
+										colorChangeUp: false,
+										colorChangeDOwn: false,
+										text: item["TG_Dime"] == "" || item["TG_Dime"] == undefined ? "" : "小 " + item["TG_Dime"].split("U")[1],
+										num: item["TG_Dime_Rate"] == 0 ? 0 : (Number(item['TG_Dime_Rate'])).toFixed(2)
+									},
+									{
+										lineType: 1,
+										mType: "MC",
+										bettingType: "C",
+										type: item["TG_Win_Rate"] == 0 ? 2 : 1,
+										colorChangeUp: false,
+										colorChangeDOwn: false,
+										text: "",
+										num: Number(item["TG_Win_Rate"]).toFixed(2)
+									},
 									{
 										lineType: 5,
 										mType: "",
@@ -1323,6 +1269,18 @@ export default defineComponent({
 							{
 								Collection: false,
 								nums: [
+									{},
+									{},
+									{
+										lineType: 1,
+										mType: "MN",
+										bettingType: "N",
+										type: item["M_Flat_Rate"] == 0 ? 2 : 1,
+										colorChangeUp: false,
+										colorChangeDOwn: false,
+										text: '和',
+										num: Number(item['M_Flat_Rate']).toFixed(2)
+									},
 									{},
 									{},
 									{},
@@ -1631,9 +1589,8 @@ export default defineComponent({
 .center-title {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
 	height: 40px;
-	background-color: #F3FAFF;
+	background-color: #ededed;
 	padding: 0 14px;
 	border-bottom: 1px solid #E3E3E3;
 
@@ -1663,12 +1620,12 @@ export default defineComponent({
 		padding-left: 13px;
 
 		div {
-			width: 61px;
+			width: 100px;
 			margin-right: 5px;
 		}
 
 		div:first-child {
-			width: 120px;
+			width: 250px;
 			margin-right: 13px;
 			text-align: left;
 		}
@@ -1752,7 +1709,7 @@ export default defineComponent({
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				width: 59px;
+				width: 100px;
 				height: 42px;
 				border: 1px solid #CECECE;
 				border-radius: 5px;

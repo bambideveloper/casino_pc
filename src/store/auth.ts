@@ -7,6 +7,7 @@ import { GET_PROFILE } from "../config"
 import { BASE_URL } from "../config"
 import { PASSWORD_CHANGE } from "../config"
 import socket from "../utils/socket";
+import { HOST_URL } from "../config";
 
 export const useAuthStore = defineStore({
   id: "auth",
@@ -54,10 +55,15 @@ export const useAuthStore = defineStore({
     async signIn(login_name: string, password: string) {
       try {
         this.setSuccess(false);
+        let browser_ip = "";
+        let browserIpResponse = await axios.get('https://api.ipify.org?format=json')
+        browser_ip = browserIpResponse.data.ip;
         let url = config.api.SIGN_IN;
         let data = {
           LoginName: login_name,
-          password: password
+          password: password,
+          browser_ip: browser_ip,
+          broswer_url: HOST_URL,
         };
         const response = await axios.post(url, data);
         console.log("reponese: ", response.data.data)

@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<van-loading color="#1989fa" class="loading-position" v-if="loading" size="40" />
+	<div :style="{ height: loading || coupon.length === 0 ? '90vh' : 'unset' }">
+		<van-loading color="#1989fa" class="loading-position" v-if="loading" size="60" />
 		<div style="text-align: center;" v-if="coupon.length === 0 && !loading">您选择的项目暂时没有赛事。请修改您的选项或迟些再返回。</div>
 		<div class="popular" v-if="!loading && coupon.length > 0">
 			<div class="divide-background"></div>
@@ -8,23 +8,23 @@
 				<span>最火</span>
 			</div>
 			<van-cell :title=couponItem.name v-for="(couponItem, couponIndex) in coupon" :key="couponIndex"
-				@click="showCouponDetail(couponItem.lid, couponIndex)" />
+				@click="showCouponDetail(couponItem.lid, couponIndex)"  class="font-bold"/>
 		</div>
 		<div class="region">
 			<div v-for="(regionItem, regionIndex) in region" :key="regionIndex">
 				<div class="divide-background"></div>
 				<div class="center-title" @click="showItem(regionIndex, regionItem.id)">
-					<span>{{ regionItem.name }}</span>
 					<img :src="`https://www.hga030.com/images/flag/${regionItem.flag_class.split(' ')[1]}.svg`"
 						v-if="regionItem.flag_class.split(' ')[1] != ''">
+					<span class="font-bold text-[14px] ml-[10px]">{{ regionItem.name }}</span>
 				</div>
 				<div v-if="regionItem['show']">
 					<div v-if="Array.isArray(regionItem.league)">
 						<van-cell :title=leagueItem.name v-for="(leagueItem, leagueIndex) in regionItem.league"
-							:key="leagueIndex" @click="showLIDDetail(leagueItem.id)" />
+							:key="leagueIndex" @click="showLIDDetail(leagueItem.id)"  class="font-bold"/>
 					</div>
 					<div v-else>
-						<van-cell :title=regionItem.league.name @click="showLIDDetail(regionItem.league.id)" />
+						<van-cell :title=regionItem.league.name @click="showLIDDetail(regionItem.league.id)"  class="font-bold"/>
 					</div>
 				</div>
 			</div>
@@ -113,9 +113,8 @@ export default defineComponent({
 .center-title {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
 	height: 40px;
-	background-color: #F3FAFF;
+	background-color: #ededed;
 	padding: 0 14px;
 	border-bottom: 1px solid #E3E3E3;
 
