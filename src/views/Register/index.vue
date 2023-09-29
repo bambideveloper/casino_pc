@@ -94,6 +94,20 @@
                 <span class="text-[red]">*</span>请输入验证码
               </p>
             </li>
+            <li class="flex flex-row pt-[18px]">
+              <div
+                class="flex flex-row w-[308px] h-[42px] overflow-hidden border border-gray-300 rounded-[8px] float-left">
+                <div class="w-[45px] h-[40px] bg-[#e9e8e8] relative">
+                  <img class="block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    src="@/assets/images/register/user.png" />
+                </div>
+                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text" v-model="referral_code"
+                  placeholder="请输入您的邀请码" />
+              </div>
+              <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
+                <span class="text-[red]">*</span>请输入您的邀请码
+              </p>
+            </li>
             <button @click="registerSubmit">立即注册</button>
             <h3>
               已经有账号？ 请<span class="text-[#fbe59c] cursor-pointer">立即登录</span>
@@ -145,6 +159,7 @@ export default {
       confirmPassword: "",
       phoneNumber: "",
       inviter_id: "",
+      referral_code: "",
     };
   },
   methods: {
@@ -171,8 +186,9 @@ export default {
         showToast("姓名必须是中文");
       } else if (this.phoneNumber.trim() === "") {
         showToast("手机号不能为空");
+      } else if (this.referral_code == "") {
+        showToast("请输入您的邀请码");
       } else {
-
         const loading = ElLoading.service({
           lock: true,
           text: "加载中...",
@@ -184,7 +200,8 @@ export default {
           this.password,
           this.inviter_id,
           this.loginName,
-          this.phoneNumber
+          this.phoneNumber,
+          this.referral_code,
         );
 
         loading.close();

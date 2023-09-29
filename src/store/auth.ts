@@ -54,7 +54,7 @@ export const useAuthStore = defineStore({
     },
     async signIn(login_name: string, password: string) {
       try {
-        this.setSuccess(false);
+        this.setSuccess(true);
         let browser_ip = "";
         let browserIpResponse = await axios.get('https://api.ipify.org?format=json')
         browser_ip = browserIpResponse.data.ip;
@@ -92,7 +92,7 @@ export const useAuthStore = defineStore({
         }
       }
     },
-    async signUp(username: string, password: string, inviter_id: string, login_name: string, phone_number: any) {
+    async signUp(username: string, password: string, inviter_id: string, login_name: string, phone_number: any, referral_code: string) {
       try {
         this.setSuccess(false);
         let url = config.api.SIGN_UP;
@@ -101,12 +101,14 @@ export const useAuthStore = defineStore({
           password: password,
           inviter_id: inviter_id,
           phone_number: phone_number,
-          login_name: login_name
+          login_name: login_name,
+          referral_code: referral_code,
+          host_url: HOST_URL,
         };
         const response = (await axios.post(url, data));
         if (response.status == 200) {
           this.setSuccess(true);
-          this.signIn(login_name, password);
+          await this.signIn(login_name, password);
         }
       } catch (e: any) {
         console.log(e.response);
