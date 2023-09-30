@@ -782,17 +782,17 @@ const menuList = ref([
           'px-[10px] pt-[18px] text-center text-[15px] relative cursor-pointer': true,
           ' animate-bounceIn-2 visible': showBackToTop,
         }">
-          <div class="w-[40px] h-[40px] top-btn"></div>
+          <div class="w-[50px] h-[50px] top-btn"></div>
         </li>
         <li class="px-[10px] pt-[18px] text-center text-[15px] relative animate-bounceIn-2 cursor-pointer">
-          <div class="w-[40px] h-[40px] server-btn"></div>
+          <div class="w-[50px] h-[50px] server-btn"></div>
         </li>
         <li class="px-[10px] pt-[18px] text-center text-[15px] relative animate-bounceIn-2 cursor-pointer">
-          <div class="w-[40px] h-[40px] cash-btn"></div>
+          <div class="w-[50px] h-[50px] cash-btn"></div>
         </li>
         <li class="px-[10px] pt-[18px] text-center text-[15px] relative animate-bounceIn-2 cursor-pointer">
           <router-link to="/download">
-            <div class="app-download-btn w-[40px] h-[40px]"></div>
+            <div class="app-download-btn w-[50px] h-[50px]"></div>
           </router-link>
         </li>
       </ul>
