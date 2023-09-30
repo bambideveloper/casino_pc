@@ -56,6 +56,11 @@ const menuList = ref([
         image: new URL("@/assets/images/lottery/1661690557403.png", import.meta.url),
       },
       {
+        name: "新澳门六合彩",
+        btnName: "开始游戏",
+        image: new URL("@/assets/images/lottery/1661690557403.png", import.meta.url),
+      },
+      {
         name: "香港六合彩",
         btnName: "开始游戏",
         image: new URL("@/assets/images/lottery/1657716617488.png", import.meta.url),
@@ -810,7 +815,7 @@ import { ogGameStore } from "../../store/og_game";
 import { agGameStore } from "../../store/ag_game";
 import { bbinGameStore } from "../../store/bbin_game";
 import { useSysConfigStore } from "../../store/sysConfig";
-import { APP_URL } from "../../config";
+import { MOBILE_URL } from "../../config";
 import { showToast } from 'vant'
 import router from "../../router";
 export default {
@@ -847,10 +852,10 @@ export default {
       } else {
         switch (name) {
           case "足球":
-            // window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=ft`, '_blank');
+            // window.open(`${MOBILE_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=ft`, '_blank');
             break;
           case "篮球":
-            // window.open(`${APP_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=bk`, '_blank');
+            // window.open(`${MOBILE_URL}/#/stadiumsDetail?token=${localStorage.getItem("token")}&type=bk`, '_blank');
             break;
         }
       }
@@ -862,58 +867,61 @@ export default {
       } else {
         switch (name) {
           case "澳门六合彩":
-            window.open(`${APP_URL}/#/macao-mark-six?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/macao-mark-six?token=${localStorage.getItem("token")}`, '_blank');
+            break;
+          case "新澳门六合彩":
+            window.open(`${MOBILE_URL}/#/new-macao-mark-six?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "香港六合彩":
-            window.open(`${APP_URL}/#/mark-six?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/mark-six?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "重庆时时彩":
-            window.open(`${APP_URL}/#/alwayscolor/cqssc?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/cqssc?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "河内五分彩":
-            window.open(`${APP_URL}/#/alwayscolor/ffc5?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/ffc5?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "澳洲幸运5":
-            window.open(`${APP_URL}/#/alwayscolor/azxy5?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/azxy5?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "澳洲幸运10":
-            window.open(`${APP_URL}/#/alwayscolor/azxy10?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/azxy10?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "幸运飞艇":
-            window.open(`${APP_URL}/#/alwayscolor/xyft?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/xyft?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "北京PK拾":
-            window.open(`${APP_URL}/#/alwayscolor/bjpk?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/bjpk?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "天津时时彩":
-            window.open(`${APP_URL}/#/alwayscolor/tjssc?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/tjssc?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "新疆时时彩":
-            window.open(`${APP_URL}/#/alwayscolor/jxssc?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/jxssc?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "重庆十分彩":
-            window.open(`${APP_URL}/#/alwayscolor/cqsf?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/cqsf?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "广东十分彩":
-            window.open(`${APP_URL}/#/alwayscolor/gdsf?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/gdsf?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "广西十分彩":
-            window.open(`${APP_URL}/#/alwayscolor/gxsf?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/gxsf?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "天津十分彩":
-            window.open(`${APP_URL}/#/alwayscolor/tjsf?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/tjsf?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "上海时时乐":
-            window.open(`${APP_URL}/#/alwayscolor/shssl?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/shssl?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "广东11选5":
-            window.open(`${APP_URL}/#/alwayscolor/gd11?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/gd11?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "福彩3D":
-            window.open(`${APP_URL}/#/alwayscolor/d3?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/d3?token=${localStorage.getItem("token")}`, '_blank');
             break;
           case "排列3":
-            window.open(`${APP_URL}/#/alwayscolor/p3?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${MOBILE_URL}/#/alwayscolor/p3?token=${localStorage.getItem("token")}`, '_blank');
             break;
         }
       }

@@ -101,8 +101,8 @@
                   <img class="block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
                     src="@/assets/images/register/user.png" />
                 </div>
-                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text" v-model="referral_code"
-                  placeholder="请输入您的邀请码" />
+                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text"
+                  v-model="referral_code" placeholder="请输入您的邀请码" />
               </div>
               <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
                 <span class="text-[red]">*</span>请输入您的邀请码
@@ -220,7 +220,7 @@ export default {
         } else {
           ElNotification({
             title: "错误",
-            message: "操作失败。",
+            message: this.errMessage,
             type: "error",
           });
         }
@@ -231,6 +231,10 @@ export default {
     success: function () {
       const { getSuccess } = useAuthStore();
       return getSuccess
+    },
+    errMessage: function () {
+      const { getErrMessage } = useAuthStore();
+      return getErrMessage
     }
   }
 };
