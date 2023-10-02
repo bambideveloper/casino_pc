@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import Layout from "@/components/layout/Layout.vue";
 import { useAuthStore } from './store/auth';
 import { storeToRefs } from 'pinia';
-import { MOBILE_URL } from './config';
+import { APP_URL } from './config';
 
 const { getProfile } = useAuthStore();
 
@@ -12,7 +12,7 @@ const alertDialogVisible = ref(true);
 const handleResize = () => {
   const width = window.visualViewport.width;
   if (width < 600) {
-    window.location.href = MOBILE_URL;
+    window.location.href = APP_URL;
   }
 }
 
