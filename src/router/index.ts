@@ -68,6 +68,16 @@ const router = createRouter({
       name: "imsports",
       component: () => import("../views/Sport/OtherPage/IMsport.vue"),
     },
+    {
+      path: "/help/deposit",
+      name: "DepositHelp",
+      component: () => import("../views/deposit_help/index.vue"),
+    },
+    {
+      path: "/help/withdrawal",
+      name: "WithdrawalHelp",
+      component: () => import("../views/guid_help/index.vue"),
+    },
   ],
 });
 
