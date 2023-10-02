@@ -669,8 +669,9 @@ const menuList = ref([
       <ul class="flex items-center justify-between">
         <li :class="menu.type === 'menu' ? 'w-[84px] h-[85px] menu-li flex' : ''" v-for="menu in menuList" :key="menu"
           @mouseenter="mouseEnter(menu.id)">
-          <router-link to="/" v-if="menu.type === 'logo'">
-            <img src="@/assets/images/logo.png" alt="logo" width="190"/>
+          <router-link to="/" v-if="menu.type === 'logo'" style="position: relative;">
+            <img src="@/assets/images/logo.png" alt="logo" width="190" />
+            <div class="logo-text">{{ HOST_URL }}</div>
           </router-link>
           <router-link :to="menu.href"
             class="flex items-center w-full text-base cursor-pointer text-[#d7d7d7] hover:text-[#fbe59c]" v-else>
@@ -816,6 +817,7 @@ import { agGameStore } from "../../store/ag_game";
 import { bbinGameStore } from "../../store/bbin_game";
 import { useSysConfigStore } from "../../store/sysConfig";
 import { APP_URL } from "../../config";
+import { HOST_URL } from "../../config";
 import { showToast } from 'vant'
 import router from "../../router";
 export default {
@@ -1084,7 +1086,7 @@ export default {
     },
   },
   watch: {
-    loginSuccessDialogVisible: function(value) {
+    loginSuccessDialogVisible: function (value) {
       if (!value) {
         this.alertDialogVisible = true;
       }
@@ -1141,5 +1143,12 @@ export default {
 
 .app-download-btn:hover {
   animation: bounceInDown 0.5s linear both;
+}
+
+.logo-text {
+  position: absolute;
+  bottom: 1px;
+  left: 64px;
+  color: #e1d074;
 }
 </style>
