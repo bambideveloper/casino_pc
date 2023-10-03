@@ -78,6 +78,16 @@ const router = createRouter({
       name: "WithdrawalHelp",
       component: () => import("../views/guid_help/index.vue"),
     },
+    {
+      path: "/help/about",
+      name: "AboutHelp",
+      component: () => import("../views/about_help/index.vue"),
+    },
+    {
+      path: "/help/problem",
+      name: "ProblemHelp",
+      component: () => import("../views/problem_help/index.vue"),
+    },
   ],
 });
 
