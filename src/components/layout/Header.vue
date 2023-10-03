@@ -604,7 +604,7 @@ const menuList = ref([
   {
     id: 10,
     name: "在线客服",
-    href: "",
+    href: "/customer",
     type: "online_service",
     children: [],
   },
@@ -623,7 +623,7 @@ const menuList = ref([
             <router-link aria-current="page" class="text-red-500" to="#/">网站首页</router-link>
           </li>
           <li class="cursor-pointer border-r-[1px] px-2 border-black">
-            <router-link aria-current="page" to="#/">在线客服</router-link>
+            <router-link aria-current="page" to="/customer">在线客服</router-link>
           </li>
           <li class="cursor-pointer border-r-[1px] px-2">
             <router-link aria-current="page" to="#/task">赏金任务</router-link>
@@ -786,7 +786,9 @@ const menuList = ref([
           <div class="w-[50px] h-[50px] top-btn"></div>
         </li>
         <li class="px-[10px] pt-[18px] text-center text-[15px] relative animate-bounceIn-2 cursor-pointer">
-          <div class="w-[50px] h-[50px] server-btn"></div>
+          <router-link aria-current="page" to="/customer">
+            <div class="w-[50px] h-[50px] server-btn"></div>
+          </router-link>
         </li>
         <li class="px-[10px] pt-[18px] text-center text-[15px] relative animate-bounceIn-2 cursor-pointer">
           <div class="w-[50px] h-[50px] cash-btn"></div>

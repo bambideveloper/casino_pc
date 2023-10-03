@@ -8,6 +8,7 @@ configStatic.VITE_APP_URL="https://www.fg1698a.com"
 
 configStatic.VITE_SERVICE_URL = "https://wap.hg909c.com"
 configStatic.VITE_LY_PAY_URL = "http://api2.spellsbet.com/v1/cash"
+configStatic.VITE_CUSTOMER_URL = "https://www.fg1698i.com/chatlink.html"
 
 // configStatic.VITE_SOCKET_URL = "http://localhost:3001"
 // configStatic.VITE_BASE_URL = "http://localhost:8001/api";

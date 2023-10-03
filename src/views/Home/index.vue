@@ -52,9 +52,9 @@ const cardGameList = ref([
             </div>
           </div>
         </div>
-        <div class="pt-1 ml-4 cursor-pointer">
+        <router-link aria-current="page" to="/customer" class="pt-1 ml-4 cursor-pointer">
           <img src="@/assets/images/service.png" alt="service" />
-        </div>
+        </router-link>
       </div>
     </div>
 
