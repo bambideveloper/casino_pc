@@ -3,7 +3,7 @@ import { CUSTOMER_URL } from "@/config";
 </script>
 
 <template>
-    <iframe :src="CUSTOMER_URL" class="w-full h-screen"></iframe>
+    <iframe src="https://www.fg1698i.com/chatlink.html" class="w-full h-screen"></iframe>
 </template>
 
 <style lang="scss"></style>
