@@ -186,9 +186,11 @@ export default {
         showToast("姓名必须是中文");
       } else if (this.phoneNumber.trim() === "") {
         showToast("手机号不能为空");
-      } else if (this.referral_code == "") {
-        showToast("请输入您的邀请码");
-      } else {
+      } 
+      // else if (this.referral_code == "") {
+      //   showToast("请输入您的邀请码");
+      // } 
+      else {
         const loading = ElLoading.service({
           lock: true,
           text: "加载中...",

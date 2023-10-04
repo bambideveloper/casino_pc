@@ -69,65 +69,71 @@ const cardGameList = ref([
         <li
           class="w-[290px] h-[80px] quick-div relative overflow-hidden mr-3 bg-[#2b2b2b] cursor-pointer flex items-center"
         >
-          <div class="bg-[#fbe59c] h-full float-left left-bar"></div>
-          <div class="absolute w-full flex items-center">
-            <div class="ml-9 float-left w-[52px] h-[52px] rounded-[50%]">
-              <img
-                src="@/assets/images/pic1.png"
-                alt="pic 1"
-                class="block w-full h-full"
-              />
+          <router-link aria-current="page" to="/register" class=" h-full w-full">
+            <div class="bg-[#fbe59c] h-full w-full float-left left-bar"></div>
+            <div class="absolute w-full h-full flex items-center">
+              <div class="ml-9 float-left w-[52px] h-[52px] rounded-[50%]">
+                <img
+                  src="@/assets/images/pic1.png"
+                  alt="pic 1"
+                  class="block w-full h-full"
+                />
+              </div>
+              <div class="float-left pl-4">
+                <h2 class="leading-[38px] text-[22px] text-[#fbe59c]">
+                  免费注册
+                </h2>
+                <p class="text-[#7b797a] text-xs">REGISTRATION</p>
+              </div>
+              <div class="wheel absolute right-[10px] w-16 h-16"></div>
             </div>
-            <div class="float-left pl-4">
-              <h2 class="leading-[38px] text-[22px] text-[#fbe59c]">
-                免费注册
-              </h2>
-              <p class="text-[#7b797a] text-xs">REGISTRATION</p>
-            </div>
-            <div class="wheel absolute right-[10px] w-16 h-16"></div>
-          </div>
+          </router-link>
         </li>
         <li
           class="w-[290px] h-[80px] quick-div relative overflow-hidden mr-3 bg-[#2b2b2b] cursor-pointer flex items-center"
         >
-          <div class="bg-[#3ea8ff] w-[10px] h-full float-left left-bar"></div>
-          <div class="absolute w-full flex items-center">
-            <div class="ml-9 float-left w-[52px] h-[52px] rounded-[50%]">
-              <img
-                src="@/assets/images/pic2.png"
-                alt="pic 2"
-                class="block w-full h-full"
-              />
+          <router-link aria-current="page" to="/" class=" h-full w-full">
+            <div class="bg-[#3ea8ff] w-[10px] h-full float-left left-bar"></div>
+            <div class="absolute w-full flex items-center">
+              <div class="ml-9 float-left w-[52px] h-[52px] rounded-[50%]">
+                <img
+                  src="@/assets/images/pic2.png"
+                  alt="pic 2"
+                  class="block w-full h-full"
+                />
+              </div>
+              <div class="float-left pl-4">
+                <h2 class="leading-[38px] text-[22px] text-[#fbe59c]">
+                  快速充值
+                </h2>
+                <p class="text-[#7b797a] text-xs">FAST RECHARGE</p>
+              </div>
+              <div class="wheel absolute right-[10px] w-16 h-16"></div>
             </div>
-            <div class="float-left pl-4">
-              <h2 class="leading-[38px] text-[22px] text-[#fbe59c]">
-                快速充值
-              </h2>
-              <p class="text-[#7b797a] text-xs">FAST RECHARGE</p>
-            </div>
-            <div class="wheel absolute right-[10px] w-16 h-16"></div>
-          </div>
+          </router-link>
         </li>
         <li
           class="w-[290px] h-[80px] quick-div relative overflow-hidden mr-3 bg-[#2b2b2b] cursor-pointer flex items-center"
         >
-          <div class="bg-[#fedb41] w-[10px] h-full float-left left-bar"></div>
-          <div class="absolute w-full flex items-center">
-            <div class="ml-9 float-left w-[52px] h-[52px] rounded-[50%]">
-              <img
-                src="@/assets/images/pic3.png"
-                alt="pic 3"
-                class="block w-full h-full"
-              />
+          <router-link aria-current="page" to="/activity/1" class=" h-full w-full">
+            <div class="bg-[#fedb41] w-[10px] h-full float-left left-bar"></div>
+            <div class="absolute w-full flex items-center">
+              <div class="ml-9 float-left w-[52px] h-[52px] rounded-[50%]">
+                <img
+                  src="@/assets/images/pic3.png"
+                  alt="pic 3"
+                  class="block w-full h-full"
+                />
+              </div>
+              <div class="float-left pl-4">
+                <h2 class="leading-[38px] text-[22px] text-[#fbe59c]">
+                  优惠大厅
+                </h2>
+                <p class="text-[#7b797a] text-xs">PROMOTION HALL</p>
+              </div>
+              <div class="wheel absolute right-[10px] w-16 h-16"></div>
             </div>
-            <div class="float-left pl-4">
-              <h2 class="leading-[38px] text-[22px] text-[#fbe59c]">
-                优惠大厅
-              </h2>
-              <p class="text-[#7b797a] text-xs">PROMOTION HALL</p>
-            </div>
-            <div class="wheel absolute right-[10px] w-16 h-16"></div>
-          </div>
+          </router-link>
         </li>
         <li
           class="w-[290px] h-[80px] quick-div relative overflow-hidden mr-3 bg-[#2b2b2b] cursor-pointer flex items-center"
