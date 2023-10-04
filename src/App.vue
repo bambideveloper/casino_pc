@@ -18,6 +18,11 @@ const handleResize = () => {
 }
 
 onMounted(async () => {
+  const width = window.visualViewport.width;
+  console.log(width);
+  if (width < 600) {
+    window.location.href = APP_URL;
+  }
   window.addEventListener("resize", handleResize)
   if (localStorage.getItem("token")) {
     await getProfile(localStorage.getItem("token"))
