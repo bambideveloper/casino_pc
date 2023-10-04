@@ -11,6 +11,7 @@ const alertDialogVisible = ref(true);
 
 const handleResize = () => {
   const width = window.visualViewport.width;
+  console.log(width);
   if (width < 600) {
     window.location.href = APP_URL;
   }
