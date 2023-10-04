@@ -15,6 +15,8 @@ export const SERVICE_URL = configStatic.VITE_SERVICE_URL;
 export const LY_PAY_URL = configStatic.VITE_LY_PAY_URL;
 export const APP_URL = configStatic.VITE_APP_URL;
 
+console.log("VITE_APP_URL", APP_URL);
+
 export const MATCH_SPORT = "/user/match-sport";
 export const GET_FT_DATA = "/ft-data";
 export const GET_SPORTS_COUNT_DATA = "/user/match-sport/get-count";
