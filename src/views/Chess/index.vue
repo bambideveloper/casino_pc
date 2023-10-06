@@ -1,6 +1,6 @@
 <template>
   <div class="qp-box w-full bg-[#efefef] pb-[50px] pt-[230px] box-border">
-    <div class="w-[1200px] mx-auto overflow-hidden bg-[#1c1c1c] rounded-[10px] box-shadow">
+    <!-- <div class="w-[1200px] mx-auto overflow-hidden bg-[#1c1c1c] rounded-[10px] box-shadow">
       <ul class="flex justify-between">
         <li v-for="item in ChessGameList" v-bind:key="item" class="cursor-pointer w-[109px] h-[80px] divider game-menu">
           <router-link :to="item.href">
@@ -17,7 +17,7 @@
           </router-link>
         </li>
       </ul>
-    </div>
+    </div> -->
     <div
       class="max-w-[1200px] mx-auto my-4 bg-black rounded-[15px] py-[30px] px-[10px] box-border box-shadow overflow-hidden">
       <ul :class="changeTabRightClass" v-if="gameList.length > 0" ref="gameList">

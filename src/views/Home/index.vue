@@ -69,7 +69,7 @@ const cardGameList = ref([
         <li
           class="w-[290px] h-[80px] quick-div relative overflow-hidden mr-3 bg-[#2b2b2b] cursor-pointer flex items-center"
         >
-          <router-link aria-current="page" to="/register" class=" h-full w-full">
+          <router-link aria-current="page" to="/register" class=" h-full w-full flex items-center">
             <div class="bg-[#fbe59c] h-full w-full float-left left-bar"></div>
             <div class="absolute w-full h-full flex items-center">
               <div class="ml-9 float-left w-[52px] h-[52px] rounded-[50%]">
@@ -92,7 +92,7 @@ const cardGameList = ref([
         <li
           class="w-[290px] h-[80px] quick-div relative overflow-hidden mr-3 bg-[#2b2b2b] cursor-pointer flex items-center"
         >
-          <router-link aria-current="page" to="/" class=" h-full w-full">
+          <router-link aria-current="page" to="/" class=" h-full w-full flex items-center">
             <div class="bg-[#3ea8ff] w-[10px] h-full float-left left-bar"></div>
             <div class="absolute w-full flex items-center">
               <div class="ml-9 float-left w-[52px] h-[52px] rounded-[50%]">
@@ -115,7 +115,7 @@ const cardGameList = ref([
         <li
           class="w-[290px] h-[80px] quick-div relative overflow-hidden mr-3 bg-[#2b2b2b] cursor-pointer flex items-center"
         >
-          <router-link aria-current="page" to="/activity/1" class=" h-full w-full">
+          <router-link aria-current="page" to="/activity/1" class=" h-full w-full flex items-center">
             <div class="bg-[#fedb41] w-[10px] h-full float-left left-bar"></div>
             <div class="absolute w-full flex items-center">
               <div class="ml-9 float-left w-[52px] h-[52px] rounded-[50%]">

@@ -166,43 +166,43 @@ export default {
       if (redirect == "OG_GAME") {
         const { dispatchRedirectOGUrl } = ogGameStore();
         await dispatchRedirectOGUrl({}, this.token)
-        if (ogSuccess.value && redirectOGUrl.value != "") {
-          window.open(redirectOGUrl.value, '_blank');
+        if (this.ogSuccess && this.redirectOGUrl != "") {
+          window.open(this.redirectOGUrl, '_blank');
         } else {
-          showToast(ogErrMessage.value);
+          showToast(this.ogErrMessage);
         }
       } else if (redirect == "AG_GAME_2") {
         const { dispatchRedirectAGUrl } = agGameStore();
         await dispatchRedirectAGUrl({ game_type: 2 }, this.token);
-        console.log(agSuccess.value, redirectAGUrl.value);
-        if (agSuccess.value && redirectAGUrl.value != "") {
-          window.open(redirectAGUrl.value, '_blank');
+        console.log(this.agSuccess, this.redirectAGUrl);
+        if (this.agSuccess && this.redirectAGUrl != "") {
+          window.open(this.redirectAGUrl, '_blank');
         } else {
-          showToast(agErrMessage.value);
+          showToast(this.agErrMessage);
         }
       } else if (redirect == "AG_GAME_1") {
         const { dispatchRedirectAGUrl } = agGameStore();
         await dispatchRedirectAGUrl({ game_type: 1 }, this.token);
-        if (agSuccess.value && redirectAGUrl.value != "") {
-          window.open(redirectAGUrl.value, '_blank');
+        if (this.agSuccess && this.redirectAGUrl != "") {
+          window.open(this.redirectAGUrl, '_blank');
         } else {
-          showToast(agErrMessage.value);
+          showToast(this.agErrMessage);
         }
       } else if (redirect == "AG_GAME_4") {
         const { dispatchRedirectAGUrl } = agGameStore();
         await dispatchRedirectAGUrl({ game_type: 4 }, this.token);
-        if (agSuccess.value && redirectAGUrl.value != "") {
-          window.open(redirectAGUrl.value, '_blank');
+        if (this.agSuccess && this.redirectAGUrl != "") {
+          window.open(this.redirectAGUrl, '_blank');
         } else {
-          showToast(agErrMessage.value);
+          showToast(this.agErrMessage);
         }
       } else if (redirect == "BBIN_GAME_1") {
         const { dispatchRedirectBBINUrl } = bbinGameStore();
         await dispatchRedirectBBINUrl({ game_type: 1 }, this.token);
-        if (bbinSuccess.value && redirectBBINUrl.value != "") {
-          window.open(redirectBBINUrl.value, '_blank');
+        if (this.bbinSuccess && this.redirectBBINUrl != "") {
+          window.open(this.redirectBBINUrl, '_blank');
         } else {
-          showToast(bbinErrMessage.value);
+          showToast(this.bbinErrMessage);
         }
       }
 
@@ -224,40 +224,40 @@ export default {
       return getSysConfig
     },
     redirectOGUrl() {
-      const { getRedirectOGUrl } = storeToRefs(ogGameStore());
-      return getRedirectOGUrl.value;
+      const { getRedirectOGUrl } = ogGameStore();
+      return getRedirectOGUrl;
     },
     redirectAGUrl() {
-      const { getRedirectAGUrl } = storeToRefs(agGameStore());
-      return getRedirectAGUrl.value;
+      const { getRedirectAGUrl } = agGameStore();
+      return getRedirectAGUrl;
     },
     redirectBBINUrl() {
-      const { getRedirectBBINUrl } = storeToRefs(bbinGameStore());
-      return getRedirectBBINUrl.value;
+      const { getRedirectBBINUrl } = bbinGameStore();
+      return getRedirectBBINUrl;
     },
     agSuccess() {
-      const { getSuccess } = storeToRefs(agGameStore());
-      return getSuccess.value
+      const { getSuccess } = agGameStore();
+      return getSuccess
     },
     agErrMessage: function () {
-      const { getErrMessage } = storeToRefs(agGameStore());
-      return getErrMessage.value
+      const { getErrMessage } = agGameStore();
+      return getErrMessage
     },
     bbinSuccess() {
-      const { getSuccess } = storeToRefs(bbinGameStore());
-      return getSuccess.value
+      const { getSuccess } = bbinGameStore();
+      return getSuccess
     },
     bbinErrMessage: function () {
-      const { getErrMessage } = storeToRefs(bbinGameStore());
-      return getErrMessage.value
+      const { getErrMessage } = bbinGameStore();
+      return getErrMessage
     },
     ogSuccess() {
-      const { getSuccess } = storeToRefs(ogGameStore());
-      return getSuccess.value
+      const { getSuccess } = ogGameStore();
+      return getSuccess
     },
     ogErrMessage: function () {
-      const { getErrMessage } = storeToRefs(ogGameStore());
-      return getErrMessage.value
+      const { getErrMessage } = ogGameStore();
+      return getErrMessage
     },
   },
   async mounted() {    
