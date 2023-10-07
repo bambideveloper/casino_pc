@@ -136,86 +136,91 @@ const games1 = [
       },
       {
         id: 2,
+        name: "新澳门六合彩",
+        image: new URL("@/assets/images/lottery/1661690557403.png", import.meta.url),
+      },
+      {
+        id: 3,
         name: "香港六合彩",
         image: new URL("@/assets/images/lottery/1657716617488.png", import.meta.url),
       },
       {
-        id: 3,
+        id: 4,
         name: "重庆时时彩",
         image: new URL("@/assets/images/lottery/1657714819579.png", import.meta.url),
       },
       {
-        id: 4,
+        id: 5,
         name: "河内五分彩",
         image: new URL("@/assets/images/lottery/1657714849313.png", import.meta.url),
       },
       {
-        id: 5,
+        id: 6,
         name: "澳洲幸运5",
         image: new URL("@/assets/images/lottery/1657714889990.png", import.meta.url),
       },
       {
-        id: 6,
+        id: 7,
         name: "澳洲幸运10",
         image: new URL("@/assets/images/lottery/1657714931262.png", import.meta.url),
       },
       {
-        id: 7,
+        id: 8,
         name: "幸运飞艇",
         image: new URL("@/assets/images/lottery/1657714996653.png", import.meta.url),
       },
       {
-        id: 8,
+        id: 9,
         name: "北京PK拾",
         image: new URL("@/assets/images/lottery/1657715017976.png", import.meta.url),
       },
       {
-        id: 9,
+        id: 10,
         name: "天津时时彩",
         image: new URL("@/assets/images/lottery/1657715051568.png", import.meta.url),
       },
       {
-        id: 10,
+        id: 11,
         name: "新疆时时彩",
         image: new URL("@/assets/images/lottery/1657715081433.png", import.meta.url),
       },
       {
-        id: 11,
+        id: 12,
         name: "重庆十分彩",
         image: new URL("@/assets/images/lottery/1657715118483.png", import.meta.url),
       },
       {
-        id: 12,
+        id: 13,
         name: "广东十分彩",
         image: new URL("@/assets/images/lottery/1657715213155.png", import.meta.url),
       },
       {
-        id: 13,
+        id: 14,
         name: "广西十分彩",
         image: new URL("@/assets/images/lottery/1657715266155.png", import.meta.url),
       },
       {
-        id: 14,
+        id: 15,
         name: "天津十分彩",
         image: new URL("@/assets/images/lottery/1657715295309.png", import.meta.url),
       },
       {
-        id: 15,
+        id: 16,
         name: "上海时时乐",
         image: new URL("@/assets/images/lottery/1657715460185.png", import.meta.url),
       },
       {
-        id: 16,
+        id: 17,
         name: "广东11选5",
         image: new URL("@/assets/images/lottery/1657715499820.png", import.meta.url),
       },
       {
-        id: 17,
+        id: 18,
         name: "福彩3D",
         image: new URL("@/assets/images/lottery/1657716481773.png", import.meta.url),
       },
       {
-        id: 18,
+        id: 19,
         name: "排列3",
         image: new URL("@/assets/images/lottery/1657716517091.png", import.meta.url),
       },
@@ -241,58 +246,61 @@ export default {
       } else {
         switch (name) {
           case "澳门六合彩":
-            window.open(`${APP_URL}/#/macao-mark-six?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/macao-mark-six?token=${localStorage.getItem("token")}&client=m`, '_blank');
+            break;
+          case "新澳门六合彩":
+            window.open(`${APP_URL}/#/new-macao-mark-six?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "香港六合彩":
-            window.open(`${APP_URL}/#/mark-six?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/mark-six?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "重庆时时彩":
-            window.open(`${APP_URL}/#/alwayscolor/cqssc?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/cqssc?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "河内五分彩":
-            window.open(`${APP_URL}/#/alwayscolor/ffc5?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/ffc5?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "澳洲幸运5":
-            window.open(`${APP_URL}/#/alwayscolor/azxy5?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/azxy5?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "澳洲幸运10":
-            window.open(`${APP_URL}/#/alwayscolor/azxy10?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/azxy10?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "幸运飞艇":
-            window.open(`${APP_URL}/#/alwayscolor/xyft?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/xyft?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "北京PK拾":
-            window.open(`${APP_URL}/#/alwayscolor/bjpk?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/bjpk?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "天津时时彩":
-            window.open(`${APP_URL}/#/alwayscolor/tjssc?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/tjssc?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "新疆时时彩":
-            window.open(`${APP_URL}/#/alwayscolor/jxssc?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/jxssc?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "重庆十分彩":
-            window.open(`${APP_URL}/#/alwayscolor/cqsf?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/cqsf?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "广东十分彩":
-            window.open(`${APP_URL}/#/alwayscolor/gdsf?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/gdsf?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "广西十分彩":
-            window.open(`${APP_URL}/#/alwayscolor/gxsf?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/gxsf?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "天津十分彩":
-            window.open(`${APP_URL}/#/alwayscolor/tjsf?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/tjsf?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "上海时时乐":
-            window.open(`${APP_URL}/#/alwayscolor/shssl?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/shssl?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "广东11选5":
-            window.open(`${APP_URL}/#/alwayscolor/gd11?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/gd11?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "福彩3D":
-            window.open(`${APP_URL}/#/alwayscolor/d3?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/d3?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
           case "排列3":
-            window.open(`${APP_URL}/#/alwayscolor/p3?token=${localStorage.getItem("token")}`, '_blank');
+            window.open(`${APP_URL}/#/alwayscolor/p3?token=${localStorage.getItem("token")}&client=m`, '_blank');
             break;
         }
       }
