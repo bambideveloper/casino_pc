@@ -18,10 +18,10 @@
                     src="@/assets/images/register/user.png" />
                 </div>
                 <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text"
-                  placeholder="用户名" v-model="loginName" />
+                  placeholder="会员账号" v-model="loginName" />
               </div>
               <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
-                <span class="text-[red]">*</span>用户名必须是6-15位的字母或数字
+                <span class="text-[red]">*</span>会员账号必须是6-15位的字母或数字
               </p>
             </li>
             <li class="flex flex-row pt-[18px]">
@@ -60,10 +60,10 @@
                     src="@/assets/images/register/user.png" />
                 </div>
                 <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text"
-                  placeholder="姓名" v-model="username" />
+                  placeholder="会员姓名" v-model="username" />
               </div>
               <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
-                <span class="text-[red]">*</span>姓名必须是中文
+                <span class="text-[red]">*</span>会员姓名必须是中文
               </p>
             </li>
             <li class="flex flex-row pt-[18px]">
