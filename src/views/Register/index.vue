@@ -6,7 +6,7 @@
           <h2 class="text-[28px] text-[#333] h-[85px] leading-[85px] indent-[50px]">
             欢迎注册
           </h2>
-          <span class="text-[28px] h-[85px] leading-[85px] text-[#fbe59c]">register</span>
+          <!-- <span class="text-[28px] h-[85px] leading-[85px] text-[#fbe59c]">register</span> -->
         </div>
         <div class="pb-[20px] pl-[165px]">
           <ul class="list-none m-0 p-0">
@@ -21,35 +21,7 @@
                   placeholder="会员账号" v-model="loginName" />
               </div>
               <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
-                <span class="text-[red]">*</span>会员账号必须是6-15位的字母或数字
-              </p>
-            </li>
-            <li class="flex flex-row pt-[18px]">
-              <div
-                class="flex flex-row w-[308px] h-[42px] overflow-hidden border border-gray-300 rounded-[8px] float-left">
-                <div class="w-[45px] h-[40px] bg-[#e9e8e8] relative">
-                  <img class="block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
-                    src="@/assets/images/register/lock.png" />
-                </div>
-                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="password"
-                  placeholder="密码" v-model="password" />
-              </div>
-              <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
-                <span class="text-[red]">*</span>请输入8-16位字母和数字
-              </p>
-            </li>
-            <li class="flex flex-row pt-[18px]">
-              <div
-                class="flex flex-row w-[308px] h-[42px] overflow-hidden border border-gray-300 rounded-[8px] float-left">
-                <div class="w-[45px] h-[40px] bg-[#e9e8e8] relative">
-                  <img class="block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
-                    src="@/assets/images/register/lock.png" />
-                </div>
-                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="password"
-                  placeholder="确认密码" v-model="confirmPassword" />
-              </div>
-              <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
-                <span class="text-[red]">*</span>请再次确认密码
+                <span class="text-[red]">*</span>会员账号必须是6-15位的字母和数字
               </p>
             </li>
             <li class="flex flex-row pt-[18px]">
@@ -71,13 +43,27 @@
                 class="flex flex-row w-[308px] h-[42px] overflow-hidden border border-gray-300 rounded-[8px] float-left">
                 <div class="w-[45px] h-[40px] bg-[#e9e8e8] relative">
                   <img class="block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
-                    src="@/assets/images/register/phone.png" />
+                    src="@/assets/images/register/lock.png" />
                 </div>
-                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text"
-                  placeholder="手机号" v-model="phoneNumber" />
+                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="password"
+                  placeholder="登录密码" v-model="password" />
               </div>
               <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
-                <span class="text-[red]">*</span>手机号必须是11位数字
+                <span class="text-[red]">*</span>请输入6-15位的字母和数字
+              </p>
+            </li>
+            <li class="flex flex-row pt-[18px]">
+              <div
+                class="flex flex-row w-[308px] h-[42px] overflow-hidden border border-gray-300 rounded-[8px] float-left">
+                <div class="w-[45px] h-[40px] bg-[#e9e8e8] relative">
+                  <img class="block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    src="@/assets/images/register/lock.png" />
+                </div>
+                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="password"
+                  placeholder="确认登录密码" v-model="confirmPassword" />
+              </div>
+              <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
+                <span class="text-[red]">*</span>请再次确认登录密码
               </p>
             </li>
             <li class="flex flex-row pt-[18px]">
@@ -88,10 +74,10 @@
                     src="@/assets/images/register/verify.png" />
                 </div>
                 <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text"
-                  placeholder="验证码" />
+                  placeholder="提款密码" />
               </div>
               <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
-                <span class="text-[red]">*</span>请输入验证码
+                <span class="text-[red]">*</span>请再次提款密码
               </p>
             </li>
             <li class="flex flex-row pt-[18px]">
@@ -102,11 +88,53 @@
                     src="@/assets/images/register/user.png" />
                 </div>
                 <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text"
-                  v-model="referral_code" placeholder="请输入您的邀请码" />
+                   placeholder="确认提款密码" />
               </div>
               <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
-                <span class="text-[red]">*</span>请输入您的邀请码
+                <span class="text-[red]">*</span>请再次确认提款密码
               </p>
+            </li>
+            <li class="flex flex-row pt-[18px]">
+              <div
+                class="flex flex-row w-[308px] h-[42px] overflow-hidden border border-gray-300 rounded-[8px] float-left">
+                <div class="w-[45px] h-[40px] bg-[#e9e8e8] relative">
+                  <img class="block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    src="@/assets/images/register/phone.png" />
+                </div>
+                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text"
+                  placeholder="手机号码" v-model="phoneNumber" />
+              </div>
+              <!-- <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
+                <span class="text-[red]">*</span>手机号必须是11位数字
+              </p> -->
+            </li>
+            <li class="flex flex-row pt-[18px]">
+              <div
+                class="flex flex-row w-[308px] h-[42px] overflow-hidden border border-gray-300 rounded-[8px] float-left">
+                <div class="w-[45px] h-[40px] bg-[#e9e8e8] relative">
+                  <img class="block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    src="@/assets/images/register/phone.png" />
+                </div>
+                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text"
+                  placeholder="验证码" />
+              </div>
+              <!-- <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
+                <span class="text-[red]">*</span>请再次确认提款密码
+              </p> -->
+            </li>
+            <li class="flex flex-row pt-[18px]">
+              <div
+                class="flex flex-row w-[308px] h-[42px] overflow-hidden border border-gray-300 rounded-[8px] float-left">
+                <div class="w-[45px] h-[40px] bg-[#e9e8e8] relative">
+                  <img class="block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    src="@/assets/images/register/phone.png" />
+                </div>
+                <input class="input-style h-full indent-[15px] text-white bg-transparent text-xs" type="text"
+                  placeholder="邀请码" v-model="referral_code" />
+              </div>
+              <!-- <p class="pl-[15px] leading-[42px] text-[#b8b8b8] float-left">
+                <span class="text-[red]">*</span>手机号必须是11位数字
+              </p> -->
             </li>
             <button @click="registerSubmit">立即注册</button>
             <h3>
